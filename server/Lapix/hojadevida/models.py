@@ -25,7 +25,7 @@ class Estudiante(User):
     identificacion = models.CharField(
         "* Identificación", max_length=200, unique=True)
     telefono = models.IntegerField("* Telefono")
-    direcion = models.CharField("* Dirección", max_length=400)
+    direccion = models.CharField("* Dirección", max_length=400)
     status = models.BooleanField(default=True)
     grado = models.ForeignKey(GradoEntrante, verbose_name="*Curso de ingreso")
     # con null=True, blank=True podremos guardar un producto sin image
@@ -35,14 +35,19 @@ class Estudiante(User):
         "Codigo de Estudiante", max_length=200, unique=True, null=True, blank=True)
     colegio_Anterior = models.CharField(max_length=200, null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Estudiante"
+        verbose_name_plural = "Estudiantes"
+    # end class
+
     def save(self, *args, **kwargs):
-        self.nombre = self.nombre.title()
-        self.apellidos = self.apellidos.title()
+        self.nombre = self.first_name.title()
+        self.apellidos = self.last_name.title()
         super(Estudiante, self).save(*args, **kwargs)
     # end def
 
     def __unicode__(self):
-        return u'%s %s' % (self.nombre, self.apellidos)
+        return u'%s %s' % (self.first_name, self.last_name)
     # end def
 
     def clean(self):
@@ -69,7 +74,7 @@ class Profesor(User):
     identificacion = models.CharField(
         "* Identificación", max_length=200, unique=True)
     telefono = models.IntegerField("* Telefono")
-    direcion = models.CharField("* Dirección", max_length=400)
+    direccion = models.CharField("* Dirección", max_length=400)
     status = models.BooleanField(default=True)
     imagen = models.ImageField(
         upload_to='MultimediaData/estudiante', null=True, blank=True)
@@ -82,7 +87,7 @@ class Profesor(User):
     # end class
 
     def __unicode__(self):
-        return u'%s %s' % (self.nombre, self.apellidos)
+        return u'%s %s' % (self.first_name, self.last_name)
     # end def
 
     def clean(self):
@@ -115,11 +120,16 @@ class Acudiente(User):
     identificacion = models.CharField(
         "* Identificación", max_length=200, unique=True)
     telefono = models.IntegerField("* Telefono")
-    direcion = models.CharField("* Dirección", max_length=400)
+    direccion = models.CharField("* Dirección", max_length=400)
     status = models.BooleanField(default=True)
     estudiantes = models.ManyToManyField(Estudiante)
     imagen = models.ImageField(upload_to='MultimediaData/acudiente', null=True,
                                blank=True)
+
+    class Meta:
+        verbose_name = "Acudiente"
+        verbose_name_plural = "Acudientes"
+    # end class
 
     def clean(self):
         if self.imagen:
@@ -142,8 +152,13 @@ class AsiganacionSede(models.Model):
     anio = models.IntegerField('Año')
     estado = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name = "Asignación de sede"
+        verbose_name_plural = "Asignaciones de sede"
+    # end class
+
     def __unicode__(self):
-        return u'%s %s'%(self.profesor.nombre, self.profesor.apellidos)
+        return u'%s %s' % (self.profesor.nombre, self.profesor.apellidos)
     # end def
 
 # end class

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 Django settings for Lapix project.
 
@@ -25,12 +27,15 @@ SECRET_KEY = '(5)oh7r)ojyiu!r8$gq0=9eirnlhis5^0-s0bg9*5dud8ua=s+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*'
+]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'exileui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,9 +43,62 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hojadevida.apps.HojadevidaConfig',
-    'configuracion',
-    'asistencia'
+    'supra',
+    'configuracion'
     ]
+
+EXILE_UI = {
+    'site_title': 'Lapix',
+    'site_header': 'Lapix',
+    'index_title': 'Software Educativo',
+    'media': {
+        'logo': {
+            'dashboard': '',
+            'page': '',
+            'login': ''
+        },
+        'icons': {
+            'hojadevida': {
+                'icon': 'school',
+                'groups': [
+                    'Usuarios',
+                    'Configuración'
+                ],
+                'models': {
+                    'Profesor': {'icon': 'person', 'group': 'Usuarios'},
+                    'Estudiante': {'icon': 'person', 'group': 'Usuarios'},
+                    'Acudiente': {'icon': 'people', 'group': 'Usuarios'},
+                    'AsiganacionSede': {'icon': 'settings', 'group': 'Configuración'}
+                }
+            },
+            'auth': {
+                'icon': 'security',
+                'groups': [
+                    'Seguridad',
+                ],
+                'models': {
+                    'Group': {'icon': 'people', 'group': 'Seguridad'},
+                    'User': {'icon': 'person', 'group': 'Seguridad'}
+                }
+            },
+            'logout': {
+                'icon': 'exit_to_app',
+            }
+        }
+    }
+}
+
+MENU_ORDER = [
+    {
+        'name': 'hojadevida',
+        'models': [
+            'Profesor',
+            'Estudiante',
+            'Acudiente',
+            'AsiganacionSede'
+        ]
+    },
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -106,7 +164,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-CO'
 
 TIME_ZONE = 'UTC'
 
@@ -121,3 +179,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = '/var/www/Lapix/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = '/var/www/Lapix/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
