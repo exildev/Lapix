@@ -3,6 +3,7 @@ from django.utils.decorators import method_decorator
 from supra import views as supra
 from hojadevida import models
 import forms
+from http import response
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
@@ -44,7 +45,7 @@ class ProfesorList(supra.SupraListView):
 
     def get_queryset(self):
         queryset = super(ProfesorList, self).get_queryset()
-        return queryset
+        return queryset.filter(eliminado=False)
     # end def
 # end class
 
@@ -69,3 +70,14 @@ class ProfesorFormAdd(supra.SupraFormView):
         return super(ProfesorFormAdd, self).dispatch(request, *args, **kwargs)
     # end def
 # end class
+
+
+def deleteProfesor(request, id):
+    profesor = models.Profesor.objects.filter(id=id).first()
+    if profesor:
+        profesor.eliminado = True
+        profesor.save()
+        return response([], 200)
+    # end if
+    return response([], 404)
+# end def

@@ -34,6 +34,7 @@ class Estudiante(User):
     codigo_Estudiante = models.CharField(
         "Codigo de Estudiante", max_length=200, unique=True, null=True, blank=True)
     colegio_Anterior = models.CharField(max_length=200, null=True, blank=True)
+    eliminado = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Estudiante"
@@ -80,7 +81,8 @@ class Profesor(User):
         upload_to='MultimediaData/estudiante', null=True, blank=True)
     hoja_vida = models.FileField(
         "Hoja de Vida", upload_to='MultimediaData/hoja_vida', null=True, blank=True)
-    
+    eliminado = models.BooleanField(default=False)
+
     class Meta:
         verbose_name = "Profesor"
         verbose_name_plural = "Profesores"
@@ -125,6 +127,7 @@ class Acudiente(User):
     estudiantes = models.ManyToManyField(Estudiante)
     imagen = models.ImageField(upload_to='MultimediaData/acudiente', null=True,
                                blank=True)
+    eliminado = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Acudiente"

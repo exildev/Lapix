@@ -9,7 +9,7 @@ import models
 
 class ProfesorAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'identificacion',
-                    'fecha', 'telefono', 'direccion', 'status')
+                    'fecha', 'telefono', 'direccion', 'status', 'eliminado')
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_filter = ('sexo', 'status')
     form = forms.ProfesorForm
@@ -25,7 +25,7 @@ class ProfesorAdmin(admin.ModelAdmin):
 
 class EstudianteAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'identificacion', 'fecha', 'telefono',
-                    'direccion', 'grado', 'codigo_Estudiante', 'colegio_Anterior', 'status')
+                    'direccion', 'grado', 'codigo_Estudiante', 'colegio_Anterior', 'status', 'eliminado')
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_filter = ('sexo', 'grado', 'status')
 # end class
@@ -33,7 +33,7 @@ class EstudianteAdmin(admin.ModelAdmin):
 
 class AcudienteAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'identificacion',
-                    'fecha', 'telefono', 'direccion', 'status')
+                    'fecha', 'telefono', 'direccion', 'status', 'eliminado')
     filter_horizontal = ('estudiantes',)
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_filter = ('sexo', 'status')
