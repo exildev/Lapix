@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator
 from supra import views as supra
 from hojadevida import models
 import forms
@@ -45,7 +46,18 @@ class ProfesorList(supra.SupraListView):
 
     def get_queryset(self):
         queryset = super(ProfesorList, self).get_queryset()
-        return queryset.filter(eliminado=False)
+        self.paginate_by = self.request.GET.get('num_page', False)
+        propiedad = self.request.GET.get('sort_property', False)
+        orden = self.request.GET.get('sort_direction', False)
+        queryset2 = queryset.filter(eliminado=False)
+        if propiedad and orden:
+            if orden == "asc":
+                queryset2 = queryset2.order_by(propiedad)
+            elif orden == "desc":
+                propiedad = "-"+propiedad
+                queryset2 = queryset2.order_by(propiedad)
+        # end if
+        return queryset2
     # end def
 # end class
 
