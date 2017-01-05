@@ -24,7 +24,7 @@ class Estudiante(User):
         "* Sexo", choices=BOOL_CHOICES, blank=False, default=True)
     identificacion = models.CharField(
         "* Identificación", max_length=200, unique=True)
-    telefono = models.IntegerField("* Telefono")
+    telefono = models.CharField("* Telefono", max_length=10)
     direccion = models.CharField("* Dirección", max_length=400)
     status = models.BooleanField(default=True)
     grado = models.ForeignKey(GradoEntrante, verbose_name="*Curso de ingreso")
@@ -74,7 +74,7 @@ class Profesor(User):
         "* Sexo", choices=BOOL_CHOICES, blank=False, default=True)
     identificacion = models.CharField(
         "* Identificación", max_length=200, unique=True)
-    telefono = models.IntegerField("* Telefono")
+    telefono = models.CharField("* Telefono", max_length=10)
     direccion = models.CharField("* Dirección", max_length=400)
     status = models.BooleanField(default=True)
     imagen = models.ImageField(
@@ -121,7 +121,7 @@ class Acudiente(User):
         "* Sexo", choices=BOOL_CHOICES, blank=False, default=True)
     identificacion = models.CharField(
         "* Identificación", max_length=200, unique=True)
-    telefono = models.IntegerField("* Telefono")
+    telefono = models.CharField("* Telefono", max_length=10)
     direccion = models.CharField("* Dirección", max_length=400)
     status = models.BooleanField(default=True)
     estudiantes = models.ManyToManyField(Estudiante)
