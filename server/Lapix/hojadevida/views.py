@@ -15,7 +15,7 @@ supra.SupraConf.ACCECC_CONTROL["allow"] = True
 class ProfesorList(supra.SupraListView):
     model = models.Profesor
     search_key = 'q'
-    list_display = ['id', 'nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'horario', 'actividades', 'status']
+    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'horario', 'actividades', 'status', 'servicios']
     search_fields = ['first_name', 'last_name', 'identificacion']
     paginate_by = 10
 
@@ -29,6 +29,12 @@ class ProfesorList(supra.SupraListView):
 
     def actividades(self, obj, row):
         return "/actividades/profesor/%d/" % (obj.id)
+    # end def
+
+    def servicios(self, obj, row):
+        edit = "/usuarios/edit/profesor/%d/" % (obj.id)
+        delete = "/usuarios/delete/profesor/%d/" % (obj.id)
+        return {'add': '/usuarios/add/profesor/', 'edit': edit, 'delete': delete}
     # end def
 
     @method_decorator(csrf_exempt)

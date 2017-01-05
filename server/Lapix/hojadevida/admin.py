@@ -13,6 +13,13 @@ class ProfesorAdmin(admin.ModelAdmin):
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_filter = ('sexo', 'status')
     form = forms.ProfesorForm
+
+    def get_form(self, request, obj=None, *args, **kwargs):
+        if obj:
+            kwargs['form'] = forms.EditProfesor
+        # end if
+        return super(ProfesorAdmin, self).get_form(request, obj, *args, **kwargs)
+    # end def
 # end class
 
 

@@ -66,7 +66,7 @@ class EditProfesor(forms.ModelForm):
 
     class Meta:
         model = models.Profesor
-        fields = ['first_name', 'last_name', 'identificacion', 'direccion', 'telefono', 'fecha', 'status', 'email', 'email']
+        fields = ['first_name', 'last_name', 'identificacion', 'direccion', 'telefono', 'fecha', 'status', 'email', 'email', 'status']
         widgets = {
             "fecha_nacimiento": DatePickerWidget(attrs={'class': 'date'}, format="%m/%d/%Y"),
             "identificacion": forms.NumberInput(),
