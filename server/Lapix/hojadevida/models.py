@@ -80,7 +80,7 @@ class Profesor(User):
         upload_to='MultimediaData/estudiante', null=True, blank=True)
     hoja_vida = models.FileField(
         "Hoja de Vida", upload_to='MultimediaData/hoja_vida', null=True, blank=True)
-
+    
     class Meta:
         verbose_name = "Profesor"
         verbose_name_plural = "Profesores"
