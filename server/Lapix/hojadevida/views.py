@@ -17,7 +17,7 @@ supra.SupraConf.ACCECC_CONTROL["allow"] = True
 class ProfesorList(supra.SupraListView):
     model = models.Profesor
     search_key = 'q'
-    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'horario', 'actividades', 'status', 'servicios']
+    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'horario', 'actividades', 'status', 'servicios', 'imagen', 'hoja_vida']
     search_fields = ['first_name', 'last_name', 'identificacion']
     paginate_by = 10
 
@@ -65,6 +65,7 @@ class ProfesorList(supra.SupraListView):
 class ProfesorFormEdit(supra.SupraFormView):
     model = models.Profesor
     form_class = forms.EditProfesor
+    response_json = False
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -76,6 +77,7 @@ class ProfesorFormEdit(supra.SupraFormView):
 class ProfesorFormAdd(supra.SupraFormView):
     model = models.Profesor
     form_class = forms.ProfesorForm
+    response_json = False
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -93,3 +95,43 @@ def deleteProfesor(request, id):
     # end if
     return response([], 404)
 # end def
+
+
+class EstudianteList(supra.SupraListView):
+    model = models.Estudiante
+    search_key = 'q'
+    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'grado', 'status', 'servicios', 'grado', 'imagen', 'codigo_Estudiante', 'colegio_Anterior']
+    search_fields = ['first_name', 'last_name', 'identificacion']
+    paginate_by = 10
+
+    def nombre(self, obj, row):
+        return {'first_name': obj.first_name, 'last_name':obj.last_name }
+    # end def
+
+    def servicios(self, obj, row):
+        edit = "/usuarios/edit/estudiante/%d/" % (obj.id)
+        delete = "/usuarios/delete/estudiante/%d/" % (obj.id)
+        return {'add': '/usuarios/add/estudiante/', 'edit': edit, 'delete': delete}
+    # end def
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(EstudianteList, self).dispatch(request, *args, **kwargs)
+    # end def
+
+    def get_queryset(self):
+        queryset = super(EstudianteList, self).get_queryset()
+        self.paginate_by = self.request.GET.get('num_page', False)
+        propiedad = self.request.GET.get('sort_property', False)
+        orden = self.request.GET.get('sort_direction', False)
+        queryset2 = queryset.filter(eliminado=False)
+        if propiedad and orden:
+            if orden == "asc":
+                queryset2 = queryset2.order_by(propiedad)
+            elif orden == "desc":
+                propiedad = "-"+propiedad
+                queryset2 = queryset2.order_by(propiedad)
+        # end if
+        return queryset2
+    # end def
+# end class
