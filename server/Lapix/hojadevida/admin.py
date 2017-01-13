@@ -28,6 +28,14 @@ class EstudianteAdmin(admin.ModelAdmin):
                     'direccion', 'grado', 'codigo_Estudiante', 'colegio_Anterior', 'status', 'eliminado')
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_filter = ('sexo', 'grado', 'status')
+    form = forms.EstudianteForm
+
+    def get_form(self, request, obj=None, *args, **kwargs):
+        if obj:
+            kwargs['form'] = forms.EdirEstudiante
+        # end if
+        return super(EstudianteAdmin, self).get_form(request, obj, *args, **kwargs)
+    # end def
 # end class
 
 
@@ -43,3 +51,4 @@ exileui.register(models.Profesor, ProfesorAdmin)
 exileui.register(models.Estudiante, EstudianteAdmin)
 exileui.register(models.Acudiente, AcudienteAdmin)
 exileui.register(models.AsiganacionSede)
+exileui.register(models.GradoEntrante)

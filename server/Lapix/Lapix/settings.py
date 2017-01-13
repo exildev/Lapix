@@ -68,7 +68,8 @@ EXILE_UI = {
                     'Profesor': {'icon': 'person', 'group': 'Usuarios'},
                     'Estudiante': {'icon': 'person', 'group': 'Usuarios'},
                     'Acudiente': {'icon': 'people', 'group': 'Usuarios'},
-                    'AsiganacionSede': {'icon': 'settings', 'group': 'Configuración'}
+                    'AsiganacionSede': {'icon': 'settings', 'group': 'Configuración'},
+                    'GradoEntrante': {'icon': 'settings', 'group': 'Configuración'}
                 }
             },
             'auth': {
@@ -95,7 +96,8 @@ MENU_ORDER = [
             'Profesor',
             'Estudiante',
             'Acudiente',
-            'AsiganacionSede'
+            'AsiganacionSede',
+            'GradoEntrante'
         ]
     },
 ]

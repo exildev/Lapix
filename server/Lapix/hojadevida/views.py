@@ -135,3 +135,38 @@ class EstudianteList(supra.SupraListView):
         return queryset2
     # end def
 # end class
+
+
+class EstudianteFormEdit(supra.SupraFormView):
+    model = models.Estudiante
+    form_class = forms.EdirEstudiante
+    response_json = False
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(EstudianteFormEdit, self).dispatch(request, *args, **kwargs)
+    # end def
+# end class
+
+
+class EstudianteFormAdd(supra.SupraFormView):
+    model = models.Estudiante
+    form_class = forms.EstudianteForm
+    response_json = False
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(EstudianteFormAdd, self).dispatch(request, *args, **kwargs)
+    # end def
+# end class
+
+
+def deleteEstudiante(request, id):
+    estudiante = models.Estudiante.objects.filter(id=id).first()
+    if estudiante:
+        estudiante.eliminado = True
+        estudiante.save()
+        return response([], 200)
+    # end if
+    return response([], 404)
+# end def
