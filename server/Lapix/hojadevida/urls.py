@@ -1,5 +1,6 @@
 from django.conf.urls import include, url
 import views
+
 """
 Profesor
 """
@@ -26,4 +27,18 @@ urlpatterns += [
         views.deleteEstudiante, name="delete_estudiante"),
     url(r'^add/estudiante/$',
         views.EstudianteFormAdd.as_view(), name="add_estudiante"),
+]
+
+"""
+Acudiente
+"""
+urlpatterns += [
+    url(r'^list/acudiente/$',
+        views.AcudienteList.as_view(), name="list_acudientes"),
+    url(r'^edit/acudiente/(?P<pk>\d+)/$',
+        views.AcudienteFormEdit.as_view(), name="edit_acudiente"),
+    url(r'^delete/acudiente/(?P<id>\d+)/$',
+        views.deleteAcudiente, name="delete_estudiante"),
+    url(r'^add/acudiente/$',
+        views.AcudienteFormAdd.as_view(), name="add_acudiente"),
 ]

@@ -45,6 +45,14 @@ class AcudienteAdmin(admin.ModelAdmin):
     filter_horizontal = ('estudiantes',)
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_filter = ('sexo', 'status')
+    form = forms.AcudienteForm
+
+    def get_form(self, request, obj=None, *args, **kwargs):
+        if obj:
+            kwargs['form'] = forms.EditAcudiente
+        # end if
+        return super(AcudienteAdmin, self).get_form(request, obj, *args, **kwargs)
+    # end def
 # end class
 
 exileui.register(models.Profesor, ProfesorAdmin)
