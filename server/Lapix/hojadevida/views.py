@@ -19,7 +19,7 @@ supra.SupraConf.ACCECC_CONTROL["allow"] = True
 class ProfesorList(supra.SupraListView):
     model = models.Profesor
     search_key = 'q'
-    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'horario', 'actividades', 'status', 'servicios', 'imagen', 'hoja_vida']
+    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'horario', 'actividades', 'status', 'servicios', 'imagen', 'hoja_vida', 'id']
     search_fields = ['first_name', 'last_name', 'identificacion']
     paginate_by = 10
 
@@ -76,9 +76,16 @@ class ProfesorFormEdit(supra.SupraFormView):
 # end class
 
 
+class AsignacionSedeInline(supra.SupraInlineFormView):
+    base_model = models.Profesor
+    model = models.AsiganacionSede
+# end class
+
+
 class ProfesorFormAdd(supra.SupraFormView):
     model = models.Profesor
     form_class = forms.ProfesorForm
+    inlines = [AsignacionSedeInline]
     response_json = False
 
     @method_decorator(csrf_exempt)
@@ -102,7 +109,7 @@ def deleteProfesor(request, id):
 class EstudianteList(supra.SupraListView):
     model = models.Estudiante
     search_key = 'q'
-    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'grado', 'status', 'servicios', 'grado', 'imagen', 'codigo_Estudiante', 'colegio_Anterior']
+    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'grado', 'status', 'servicios', 'grado', 'imagen', 'codigo_Estudiante', 'colegio_Anterior', 'id']
     search_fields = ['first_name', 'last_name', 'identificacion']
     paginate_by = 10
 
@@ -177,7 +184,8 @@ def deleteEstudiante(request, id):
 class AcudienteList(supra.SupraListView):
     model = models.Acudiente
     search_key = 'q'
-    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'status', 'servicios', 'imagen']
+    list_filter = ['asignacionsede__sede',]
+    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'status', 'servicios', 'imagen', 'id']
     search_fields = ['first_name', 'last_name', 'identificacion']
     paginate_by = 10
 

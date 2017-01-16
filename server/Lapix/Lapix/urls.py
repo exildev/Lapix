@@ -22,6 +22,7 @@ import settings
 urlpatterns = [
     url(r'^dashboard/', exileui.urls),
     url(r'^usuarios/', include('hojadevida.urls')),
+    url(r'^configuracion/', include('configuracion.urls')),
 ]
 
 if settings.DEBUG:

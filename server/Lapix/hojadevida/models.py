@@ -32,7 +32,7 @@ class Estudiante(User):
     imagen = models.ImageField(
         upload_to='MultimediaData/estudiante', null=True, blank=True)
     codigo_Estudiante = models.CharField(
-        "Codigo de Estudiante", max_length=200, unique=True, null=True, blank=True)
+        "Codigo de Estudiante", max_length=200, unique=True)
     colegio_Anterior = models.CharField(max_length=200, null=True, blank=True)
     eliminado = models.BooleanField(default=False)
 
