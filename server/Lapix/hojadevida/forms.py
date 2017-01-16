@@ -214,3 +214,12 @@ class EditAcudiente(forms.ModelForm):
         }
     # end class
 # end clas
+
+
+class AsignacionSedeForm(forms.ModelForm):
+
+    class Meta:
+        model = models.AsiganacionSede
+        exclude = ('anio',)
+    # end class
+# end class

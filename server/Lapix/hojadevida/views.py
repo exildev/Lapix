@@ -6,7 +6,9 @@ from django.contrib.auth import login, logout, authenticate
 from supra import views as supra
 from hojadevida import models
 import forms
+import json as simplejson
 from http import response
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
@@ -19,7 +21,7 @@ supra.SupraConf.ACCECC_CONTROL["allow"] = True
 class ProfesorList(supra.SupraListView):
     model = models.Profesor
     search_key = 'q'
-    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'horario', 'actividades', 'status', 'servicios', 'imagen', 'hoja_vida', 'id']
+    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'horario', 'actividades', 'status', 'servicios', 'sedes', 'imagen', 'hoja_vida', 'id']
     search_fields = ['first_name', 'last_name', 'identificacion']
     paginate_by = 10
 
@@ -33,6 +35,11 @@ class ProfesorList(supra.SupraListView):
 
     def actividades(self, obj, row):
         return "/actividades/profesor/%d/" % (obj.id)
+    # end def
+
+    def sedes(self, obj, row):
+        asiganacion = models.AsiganacionSede.objects.filter(profesor=obj.id)
+        return list(asiganacion.values('sede', 'sede__nombre', 'id'))
     # end def
 
     def servicios(self, obj, row):
@@ -64,21 +71,23 @@ class ProfesorList(supra.SupraListView):
 # end class
 
 
+class AsignacionSedeInline(supra.SupraInlineFormView):
+    base_model = models.Profesor
+    model = models.AsiganacionSede
+    form_class = forms.AsignacionSedeForm
+# end class
+
+
 class ProfesorFormEdit(supra.SupraFormView):
     model = models.Profesor
     form_class = forms.EditProfesor
+    inlines = [AsignacionSedeInline]
     response_json = False
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(ProfesorFormEdit, self).dispatch(request, *args, **kwargs)
     # end def
-# end class
-
-
-class AsignacionSedeInline(supra.SupraInlineFormView):
-    base_model = models.Profesor
-    model = models.AsiganacionSede
 # end class
 
 

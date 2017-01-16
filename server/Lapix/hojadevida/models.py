@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from configuracion.models import Sede
+from datetime import date
 # Create your models here.
 
 
@@ -152,7 +153,7 @@ class Acudiente(User):
 class AsiganacionSede(models.Model):
     profesor = models.ForeignKey(Profesor)
     sede = models.ManyToManyField(Sede)
-    anio = models.IntegerField('Año')
+    anio = models.IntegerField('Año', default=date.today().year)
     estado = models.BooleanField(default=True)
 
     class Meta:
@@ -161,7 +162,7 @@ class AsiganacionSede(models.Model):
     # end class
 
     def __unicode__(self):
-        return u'%s %s' % (self.profesor.nombre, self.profesor.apellidos)
+        return u'%s %s' % (self.profesor.first_name, self.profesor.last_name)
     # end def
 
 # end class

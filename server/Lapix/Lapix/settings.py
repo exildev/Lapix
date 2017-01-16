@@ -72,6 +72,15 @@ EXILE_UI = {
                     'GradoEntrante': {'icon': 'settings', 'group': 'Configuración'}
                 }
             },
+            'configuracion': {
+                'icon': 'settings',
+                'groups': [
+                    'Sede'
+                ],
+                'models': {
+                    'Sede': {'icon': 'home', 'group': 'Sede'},
+                }
+            },
             'auth': {
                 'icon': 'security',
                 'groups': [
@@ -100,6 +109,12 @@ MENU_ORDER = [
             'GradoEntrante'
         ]
     },
+    {
+        'name': 'configuracion',
+        'models': [
+            'Sede'
+        ]
+    }
 ]
 
 MIDDLEWARE = [

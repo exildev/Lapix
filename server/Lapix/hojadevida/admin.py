@@ -7,12 +7,20 @@ import models
 # Register your models here.
 
 
+class AsignacionSedeStack(admin.StackedInline):
+    model = models.AsiganacionSede
+    filter_horizontal = ['sede',]
+    extra = 0
+# end class
+
+
 class ProfesorAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'identificacion',
                     'fecha', 'telefono', 'direccion', 'status', 'eliminado')
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_filter = ('sexo', 'status')
     form = forms.ProfesorForm
+    inlines = [AsignacionSedeStack]
 
     def get_form(self, request, obj=None, *args, **kwargs):
         if obj:
