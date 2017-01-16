@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login, logout, authenticate
@@ -254,7 +256,6 @@ def deleteAcudiente(request, id):
 
 @csrf_exempt
 def loginU(request):
-    print request.POST, request.body
     if request.method == "POST":
         form = forms.LoginForm(request.POST)
         if form.is_valid():
