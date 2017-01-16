@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.core.paginator import Paginator
+from django.contrib.auth import login, logout, authenticate
 from supra import views as supra
 from hojadevida import models
 import forms
@@ -244,4 +244,70 @@ def deleteAcudiente(request, id):
         return response([], 200)
     # end if
     return response([], 404)
+# end def
+
+
+"""
+    Logins
+"""
+
+
+@csrf_exempt
+def loginU(request):
+    print request.POST, request.body
+    if request.method == "POST":
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            usuario = authenticate(username=username, password=password)
+            if usuario is not None:
+                if usuario.is_active:
+                    login(request, usuario)
+                    return response(simplejson.dumps({"exito": ["Usuario Conectado"]}), 200)
+                # end if
+                return response(simplejson.dumps({"error": ["Usuario desactivado"]}), 400)
+            # end if
+            return response(simplejson.dumps({"error": ["Usuario o contraseña incorrectos"]}), 400)
+        # end if
+        errors = form.errors.items()
+        return response(simplejson.dumps(dict(errors)), 400)
+    # end if
+    return response([], 403)
+# end def
+
+
+class LoginA(supra.SupraSession):
+    model = models.Acudiente
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginA, self).dispatch(request, *args, **kwargs)
+    # end def
+# end class
+
+
+class LoginE(supra.SupraSession):
+    model = models.Estudiante
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginE, self).dispatch(request, *args, **kwargs)
+    # end def
+# end class
+
+
+class LoginP(supra.SupraSession):
+    model = models.Profesor
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginP, self).dispatch(request, *args, **kwargs)
+    # end def
+# end class
+
+
+def logoutU(request):
+    logout(request)
+    return response([], 200)
 # end def

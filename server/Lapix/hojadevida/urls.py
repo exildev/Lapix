@@ -42,3 +42,14 @@ urlpatterns += [
     url(r'^add/acudiente/$',
         views.AcudienteFormAdd.as_view(), name="add_acudiente"),
 ]
+
+"""
+ Logins
+"""
+urlpatterns += [
+    url(r'^login/acudiente/$', views.LoginA.as_view(), name="loginA"),
+    url(r'^login/estudiante/$', views.LoginE.as_view(), name="loginE"),
+    url(r'^login/profesor/$', views.LoginP.as_view(), name="loginP"),
+    url(r'^login/$', views.loginU, name="loginU"),
+    url(r'^logout/$', views.logoutU, name="logout"),
+]
