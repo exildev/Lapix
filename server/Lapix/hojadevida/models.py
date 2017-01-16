@@ -150,7 +150,7 @@ class Acudiente(User):
 # end class
 
 
-class AsiganacionSede(models.Model):
+class AsignacionSede(models.Model):
     profesor = models.ForeignKey(Profesor)
     sede = models.ManyToManyField(Sede)
     anio = models.IntegerField('Año', default=date.today().year)

@@ -8,9 +8,9 @@ import models
 
 
 class AsignacionSedeStack(admin.StackedInline):
-    model = models.AsiganacionSede
+    model = models.AsignacionSede
     filter_horizontal = ['sede',]
-    extra = 0
+    extra = 1
 # end class
 
 
@@ -66,5 +66,5 @@ class AcudienteAdmin(admin.ModelAdmin):
 exileui.register(models.Profesor, ProfesorAdmin)
 exileui.register(models.Estudiante, EstudianteAdmin)
 exileui.register(models.Acudiente, AcudienteAdmin)
-exileui.register(models.AsiganacionSede)
+exileui.register(models.AsignacionSede)
 exileui.register(models.GradoEntrante)

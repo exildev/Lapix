@@ -21,6 +21,7 @@ supra.SupraConf.ACCECC_CONTROL["allow"] = True
 class ProfesorList(supra.SupraListView):
     model = models.Profesor
     search_key = 'q'
+    list_filter = ['asignacionsede__sede',]
     list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'horario', 'actividades', 'status', 'servicios', 'sedes', 'imagen', 'hoja_vida', 'id']
     search_fields = ['first_name', 'last_name', 'identificacion']
     paginate_by = 10
@@ -38,7 +39,7 @@ class ProfesorList(supra.SupraListView):
     # end def
 
     def sedes(self, obj, row):
-        asiganacion = models.AsiganacionSede.objects.filter(profesor=obj.id)
+        asiganacion = models.AsignacionSede.objects.filter(profesor=obj.id)
         return list(asiganacion.values('sede', 'sede__nombre', 'id'))
     # end def
 
@@ -73,7 +74,7 @@ class ProfesorList(supra.SupraListView):
 
 class AsignacionSedeInline(supra.SupraInlineFormView):
     base_model = models.Profesor
-    model = models.AsiganacionSede
+    model = models.AsignacionSede
     form_class = forms.AsignacionSedeForm
 # end class
 
