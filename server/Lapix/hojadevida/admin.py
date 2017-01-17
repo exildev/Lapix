@@ -18,6 +18,7 @@ class ProfesorAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'identificacion',
                     'fecha', 'telefono', 'direccion', 'status', 'eliminado')
     search_fields = ('first_name', 'last_name', 'identificacion')
+    list_editable = ('eliminado',)
     list_filter = ('sexo', 'status')
     form = forms.ProfesorForm
     inlines = [AsignacionSedeStack]
@@ -36,6 +37,7 @@ class EstudianteAdmin(admin.ModelAdmin):
                     'direccion', 'grado', 'codigo_Estudiante', 'colegio_Anterior', 'status', 'eliminado')
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_filter = ('sexo', 'grado', 'status')
+    list_editable = ('eliminado',)
     form = forms.EstudianteForm
 
     def get_form(self, request, obj=None, *args, **kwargs):
@@ -53,6 +55,7 @@ class AcudienteAdmin(admin.ModelAdmin):
     filter_horizontal = ('estudiantes',)
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_filter = ('sexo', 'status')
+    list_editable = ('eliminado',)
     form = forms.AcudienteForm
 
     def get_form(self, request, obj=None, *args, **kwargs):
