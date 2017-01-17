@@ -191,6 +191,17 @@ def deleteEstudiante(request, id):
 # end def
 
 
+class GradosAnterioresList(supra.SupraListView):
+    model = models.GradoEntrante
+    list_display = ['nombre', 'id']
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(GradosAnterioresList, self).dispatch(request, *args, **kwargs)
+    # end def
+# end class
+
+
 class AcudienteList(supra.SupraListView):
     model = models.Acudiente
     search_key = 'q'

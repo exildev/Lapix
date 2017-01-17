@@ -53,3 +53,11 @@ urlpatterns += [
     url(r'^login/$', views.loginU, name="loginU"),
     url(r'^logout/$', views.logoutU, name="logout"),
 ]
+
+
+"""
+Otros
+"""
+urlpatterns += [
+    url(r'^list/gradosanteriores/$', views.GradosAnterioresList.as_view(), name="gradosanteriores"),
+]
