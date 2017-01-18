@@ -16,7 +16,7 @@ class ProfesorForm(UserCreationForm):
             attrs={'class': 'date'},
             format="%m/%d/%Y")
         self.fields['fecha'].input_formats = (
-            '%Y/%m/%d', '%d/%m/%Y', '%m/%d/%Y')
+            '%Y/%m/%d', '%d/%m/%Y', '%m/%d/%Y', '%Y-%m-%d')
         self.fields['telefono'].widget = forms.NumberInput()
         self.fields['identificacion'].widget = forms.NumberInput()
     # end def
@@ -50,7 +50,7 @@ class EditProfesor(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EditProfesor, self).__init__(*args, **kwargs)
         self.fields['fecha'].input_formats = (
-            '%Y/%m/%d', '%d/%m/%Y', '%m/%d/%Y')
+            '%Y/%m/%d', '%d/%m/%Y', '%m/%d/%Y', '%Y-%m-%d')
     # end def
 
     def clean_imagen(self):
@@ -220,6 +220,6 @@ class AsignacionSedeForm(forms.ModelForm):
 
     class Meta:
         model = models.AsignacionSede
-        exclude = ('anio',)
+        exclude = ()
     # end class
 # end class

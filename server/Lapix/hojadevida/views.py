@@ -22,7 +22,7 @@ class ProfesorList(supra.SupraListView):
     model = models.Profesor
     search_key = 'q'
     list_filter = ['asignacionsede__sede',]
-    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'horario', 'actividades', 'status', 'servicios', 'sedes', 'imagen', 'hoja_vida', 'id']
+    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'date', 'direccion', 'telefono', 'horario', 'actividades', 'status', 'servicios', 'sedes', 'imagen', 'hoja_vida', 'id']
     search_fields = ['first_name', 'last_name', 'identificacion']
     paginate_by = 10
 
@@ -36,6 +36,10 @@ class ProfesorList(supra.SupraListView):
 
     def actividades(self, obj, row):
         return "/actividades/profesor/%d/" % (obj.id)
+    # end def
+
+    def date(self, obj, row):
+        return obj.fecha.strftime("%Y-%m-%d")
     # end def
 
     def sedes(self, obj, row):
@@ -119,7 +123,7 @@ def deleteProfesor(request, id):
 class EstudianteList(supra.SupraListView):
     model = models.Estudiante
     search_key = 'q'
-    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'grado', 'status', 'servicios', 'grado', 'imagen', 'codigo_Estudiante', 'colegio_Anterior', 'id']
+    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'date', 'direccion', 'telefono', 'grado', 'status', 'servicios', 'grado', 'imagen', 'codigo_Estudiante', 'colegio_Anterior', 'id']
     search_fields = ['first_name', 'last_name', 'identificacion']
     paginate_by = 10
 
@@ -136,6 +140,10 @@ class EstudianteList(supra.SupraListView):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(EstudianteList, self).dispatch(request, *args, **kwargs)
+    # end def
+
+    def date(self, obj, row):
+        return obj.fecha.strftime("%Y-%m-%d")
     # end def
 
     def get_queryset(self):
@@ -206,7 +214,7 @@ class AcudienteList(supra.SupraListView):
     model = models.Acudiente
     search_key = 'q'
     list_filter = ['asignacionsede__sede',]
-    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'fecha', 'direccion', 'telefono', 'status', 'servicios', 'imagen', 'id']
+    list_display = ['nombre', 'identificacion', 'email', 'sexo', 'date', 'direccion', 'telefono', 'status', 'servicios', 'imagen', 'id']
     search_fields = ['first_name', 'last_name', 'identificacion']
     paginate_by = 10
 
@@ -220,6 +228,10 @@ class AcudienteList(supra.SupraListView):
         return {'add': '/usuarios/add/acudiente/', 'edit': edit, 'delete': delete}
     # end def
 
+    def date(self, obj, row):
+        return obj.fecha.strftime("%Y-%m-%d")
+    # end def
+    
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(AcudienteList, self).dispatch(request, *args, **kwargs)
