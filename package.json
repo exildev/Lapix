@@ -1,0 +1,31 @@
+{
+  "name": "lapix-escritorio",
+  "version": "0.0.1",
+  "description": "Edication Plataform",
+  "main": "./desktop/main.js",
+  "dependencies": {
+    "electron-config": "^0.2.1"
+  },
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron": "^1.4.7"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "polymer test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exildev/Lapix.git"
+  },
+  "keywords": [
+    "education",
+    "lapix"
+  ],
+  "author": "Exile autors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/exildev/Lapix/issues"
+  },
+  "homepage": "https://github.com/exildev/Lapix#readme"
+}

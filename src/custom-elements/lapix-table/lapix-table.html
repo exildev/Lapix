@@ -1,0 +1,184 @@
+<link rel="import" href="../../elements.html">
+<dom-module id="lapix-table">
+    <style>
+        :host {
+            display: block;
+            padding: 8px;
+            --paper-datatable-selection-toolbar-text-color: var(--lapix-text, --primary-text-color);
+            --paper-datatable-selection-toolbar-color: var(--lapix-header, --primary-color);
+            --paper-datatable-checkbox-border-color: var(--lapix-accent, --accent-color);
+            --paper-datatable-header-checkbox-border-color: var(--lapix-accent, --accent-color);
+            --paper-datatable-checkbox-color:  var(--lapix-accent, --accent-color);
+            --paper-toggle-button-checked-bar-color: var(--lapix-accent, --accent-color);
+            --paper-toggle-button-checked-button-color:	var(--lapix-accent, --accent-color);
+            --paper-toggle-button-checked-ink-color: var(--lapix-accent, --accent-color);
+        }
+        /*paper-dialog.size-position {
+            position: absolute;
+            top: 122px;
+            left: 0;
+            width: 90%;
+            max-height: 600px;
+            overflow: auto;
+        }*/
+        paper-fab.add{
+            position: fixed;
+            bottom: 60px;
+            right: 60px;
+            --paper-fab-background: var(--lapix-accent-dark, --accent-color);
+        }
+    </style>
+    <template>
+        <iron-ajax id="get" handle-as="json" method="get" url="[[fullUrl]]"></iron-ajax>
+        <iron-ajax id="set" handle-as="json" method="post" content-type="application/x-www-form-urlencoded"></iron-ajax>
+        <iron-ajax id="del" handle-as="json" method="get"></iron-ajax>
+        <paper-datatable-card id="datatableCard" header="[[label]]" page-size="10" data-source="{{_dataSource}}" id-property="id" selected-ids="{{selectedIds}}">
+            <div toolbar-main>
+                <paper-icon-button icon="cached" on-tap="retrieveResults"></paper-icon-button>
+            </div>
+            <div toolbar-select>
+                <paper-icon-button icon="delete" on-tap="deleteSelected"></paper-icon-button>
+            </div>
+            <div toolbar-select-single>
+                <paper-icon-button icon="editar" on-tap="editDialogForSelected"></paper-icon-button>
+            </div>
+            <paper-datatable id="datatable" selectable multi-selection selected-items="{{selectedItems}}" >
+                <div no-results>
+                    Buscando resultados ...
+                </div>
+                <content select="paper-datatable-column"></content>
+            </paper-datatable>
+        </paper-datatable-card>
+        <paper-dialog id="dialog" class="size-position">
+            <h2>[[label]]</h2>
+            <paper-dialog-scrollable>
+                <content select="[form]"></content>
+            </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button on-tap="_dismissDialog">Guardar</paper-button>
+                <paper-button dialog-dismiss>Cancelar</paper-button>
+            </div>
+        </paper-dialog>
+        <paper-fab class="add" icon="add" on-tap="_onTapAdd"></paper-fab>
+    </template>
+    <script>
+        Polymer({
+            is: "lapix-table",
+            properties: {
+                site: {
+                    type: String,
+                    notify: true
+                },
+                fullUrl: {
+                    type: String,
+                    computed: 'computeFullUrl(site)',
+                    notify: true
+                },
+                label: {
+                    type: String,
+                    notify: true
+                },
+                _dataSource: {
+                    type: Object
+                },
+                addUrl: String
+            },
+            listeners: {
+                'get.response': '_onGetResponse',
+                'set.response': '_onSetResponse',
+                'del.response': '_onDelResponse',
+                'get.error': '_onGetError',
+                'set.error': '_onSetError',
+                'del.error': '_onDelError',
+            },
+            ready: function() {
+                this._dataSource = {
+                    get: (sort, page, pageSize) => {
+                        this.$.get.params = { page: page, num_page: pageSize, sort_property: sort.property, sort_direction: sort.direction };
+                        this.$.get.generateRequest();
+                        return new Promise((resolve, reject) => {
+                            this._onGetResponse = evn => {
+                                this.set('_dataSource.length', evn.detail.response.count);
+                                this.addUrl = evn.detail.response.object_list[0].servicios.add;
+                                console.log(evn.detail.response.object_list);
+                                resolve(evn.detail.response.object_list);
+                            };
+                            this._onGetError = evn => {
+                                console.warn('Error al consultar los datos', evn);
+                                resolve([]);
+                            };
+                        });
+                    },
+                    set: (item, property, value) => {
+                        let aux = JSON.parse(JSON.stringify(item));
+                        this.$.set.url = lapix.conf.get('host') + aux.servicios.edit;
+                        this.$.set.body = this.cleanParameter(aux);
+                        this.$.set.generateRequest();
+                        return new Promise((resolve, reject) => {
+                            this._onSetResponse = evn => {
+                                this.retrieveResults();
+                                resolve(true);
+                            }
+                            this._onSetError = evn => {
+                                console.warn('no se pudueron guardar los cambios');
+                                resolve(false);
+                            }
+                        })
+                    },
+                    length: 0
+                };
+            },
+            cleanParameter: function(item){
+                console.warn('Sobrescribe esta funcion en tu implementacion de lapix-table');
+            },
+            retrieveResults: function(ev){
+                this.computeFullUrl(this.site);
+                this.$.datatableCard.retrieveVisibleData();
+            },
+            computeFullUrl: function(site){
+                return lapix.conf.get('host') + site;
+            },
+            deleteSelected: function(){
+                for (let item of this.selectedItems) {
+                    this.$.del.url = lapix.conf.get('host') + item.servicios.delete;
+                    this.$.del.generateRequest();
+                }
+            },
+            editDialogForSelected: function () {
+                let item = this.selectedItems[0];
+                let form = this.querySelector('[form]');
+                if(form){
+                    let aux = JSON.parse(JSON.stringify(item));
+                    form.add = false;
+                    form.action = lapix.conf.get('host') + aux.servicios.edit;
+                    form.values = this.cleanParameter(aux);
+                    this.$.dialog.open();
+                }else{
+                    console.warn('No has definido un formulario para este Elemento');
+                }
+            },
+            _onDelResponse: function(){
+                this.retrieveResults();
+            },
+            _onDelError: function(evn){
+                console.warn('no se pudo eliminar el registro', evn);
+            },
+            _onTapAdd: function () {
+                let form = this.querySelector('[form]');
+                if(form){
+                    form.add = true;
+                    form.action = lapix.conf.get('host') + this.addUrl;
+                    form.values = null;
+                    form.reset();
+                    this.$.dialog.open();
+                }else{
+                    console.warn('No has definido un formulario para este Elemento');
+                }
+            },
+            _dismissDialog: function (evn) {
+                let form = this.querySelector('[form]');
+                form.submit();
+            }
+        });
+    </script>
+</dom-module>

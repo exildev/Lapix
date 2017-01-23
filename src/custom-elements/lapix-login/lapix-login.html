@@ -1,0 +1,84 @@
+<link rel="import" href="../../elements.html">
+
+<dom-module id="lapix-login">
+    <style include="iron-flex"></style>
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+                height: 100vh;
+            }
+            :host .login{
+                background: #ccc;
+                width: 300px;
+                height: 300px;
+                padding: 16px;
+            }
+            :host > .full{
+                width: 100%;
+                height: 100%
+            }
+        </style>
+        <div class="full layout horizontal center-center">
+            <div class="login">
+                <div id="error"></div>
+                <form id="loginform" is="iron-form" action$="[[action]]"  method$="[[method]]">
+                    <paper-input label="Usuario" value="{{user::input}}" name="username"></paper-input>
+                    <paper-input label="Contraseñsa" value="{{pass::input}}" name="password"></paper-input>
+                    <div class="layout horizontal-reverse">
+                        <paper-button id="btnlogin" raised >Login</paper-button>
+                        <paper-button id="btnforgot" raised >Olvide mi Contraseña</paper-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "lapix-login",
+            properties: {
+                action: {
+                    type: String,
+                    notify: true
+                },
+                method: {
+                    type: String,
+                    notify: true
+                },
+                newUrl: {
+                    type: String,
+                    notify: true
+                }
+            },
+            listeners: {
+                'btnlogin.tap': '_loginSubmit',
+                'btnforgot.tap': '_loginForgot',
+                'loginform.iron-form-response': '_onResponse',
+                'loginform.iron-form-error': '_onError',
+                'loginform.iron-form-presubmit': '_preSend'
+            },
+            _loginSubmit: function(){
+                this.$.loginform.submit();
+            },
+            _loginForgot: function () {
+                console.log('forgot');
+            },
+            _onResponse: function (data) {
+                console.log(data.detail.response);
+                // if(window.ipc && this.newUrl){
+                    window.ipc.send('go-to', { file: this.newUrl});
+                // }else{
+                //     console.log('ipc o newUrl indefinido');
+                // }
+            },
+            _onError: function (e) {
+                window.ipc.send('go-to', { file: this.newUrl});
+                this.$.error.textContent = "Usuario o contraseña invalidos"
+            },
+            _preSend: function () {
+                this.$.error.textContent = ""
+            }
+        });
+    </script>
+</dom-module>

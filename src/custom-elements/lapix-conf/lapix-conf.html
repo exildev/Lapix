@@ -1,0 +1,31 @@
+<link rel="import" href="../../elements.html">
+<dom-module id="lapix-conf">
+    <style include="iron-flex"></style>
+    <style>
+        :host {
+            display: block;
+            width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+    <template>
+        <paper-input id="ihost" label="Host" value={{host}} on-change="setHost"></paper-input>
+    </template>
+    <script>
+        Polymer({
+            is: 'lapix-conf',
+            properties: {
+                host: {
+                    type: String,
+                    notify: true,
+                    value: function() {
+                        return lapix.conf.get('host');
+                    }
+                }
+            },
+            setHost: function (e) {
+                lapix.conf.set('host', this.$.ihost.value);
+            }
+        });
+    </script>
+</dom-module>

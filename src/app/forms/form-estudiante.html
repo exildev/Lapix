@@ -1,0 +1,88 @@
+<link rel="import" href="../../elements.html">
+<dom-module id="form-estudiante">
+    <style include="iron-flex"></style>
+    <style>
+        :host {
+            display: block;
+        }
+        paper-input, paper-dropdown-menu{
+            margin: 8px;
+        }
+        .horizontal{
+            min-width: 300px;
+        }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+    </style>
+    <template>
+        <iron-ajax id="ajaxGrado" handle-as="json" last-response="{{response}}"></iron-ajax>
+        <form is="iron-form" id="form" method="post" action$="[[action]]">
+            <template is="dom-if" if="[[add]]">
+                <div class="layout vertical">
+                    <div class="layout horizontal wrap">
+                        <paper-input char-counter maxlength="150" name="username" type="text" required
+                            auto-validate error-message="Este campo es requerido" label="Nombre de usuario" autofocus></paper-input>
+                    </div>
+                    <div class="layout horizontal wrap">
+                        <paper-input name="password1" type="password" required
+                            auto-validate error-message="Este campo es requerido" label="Contraseña"></paper-input>
+                        <paper-input name="password2" type="password" required
+                            auto-validate error-message="Este campo es requerido" label="Confirmar contraseña"></paper-input>
+                    </div>
+                </div>
+            </template>
+            <div class="layout vertical">
+                <div class="layout horizontal wrap">
+                    <paper-input maxlength="30" name="first_name" type="text" label="Nombre"></paper-input>
+                    <paper-input maxlength="30" name="last_name" type="text" label="Apellidos"></paper-input>
+                </div>
+                <div class="layout horizontal wrap">
+                    <paper-input maxlength="200" name="identificacion" type="number" pattern="\d*" required
+                        auto-validate error-message="Este campo es requerido" label="Identificación"></paper-input>
+                    <paper-input name="fecha" type="date" required
+                        auto-validate error-message="Este campo es requerido" label="Fecha de Nacimiento"></paper-input>
+                </div>
+                <div class="layout horizontal wrap">
+                    <paper-input maxlength="200" name="codigo_Estudiante" type="text" required
+                        auto-validate error-message="Este campo es requerido" label="Codigo de Estudiante"></paper-input>
+                    <paper-input maxlength="200" name="colegio_Anterior" type="text" label="Colegio Anterior"></paper-input>
+                </div>
+                <div class="layout horizontal wrap">
+                    <paper-input maxlength="400" name="direccion" type="text" required
+                        auto-validate error-message="Este campo es requerido" label="Dirección"></paper-input>
+                    <paper-input maxlength="10" name="telefono" type="number" required
+                        auto-validate error-message="Este campo es requerido" label="Telefono"></paper-input>
+                </div>
+                <div class="layout horizontal wrap">
+                    <input name="grado" required type="hidden" value="{{selected}}">
+                    <paper-dropdown-menu label="Curso de ingreso:">
+                        <paper-listbox class="dropdown-content" selected="{{selected}}" attr-for-selected="value">
+                            <template is="dom-repeat" items="[[response.object_list]]" >
+                                <paper-item value="[[item.id]]">[[item.nombre]]</paper-item>
+                            </template>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                </div>
+                <div class="layout horizontal wrap">
+                    <paper-input name="imagen" type="file" label="Imagen"></paper-input>
+                </div>
+            </div>
+        </form>
+    </template>
+    <script>
+        Polymer({
+            is: "form-estudiante",
+            behaviors: [LapixFormBehavior],
+            ready: function() {
+                this.$.ajaxGrado.url = lapix.conf.get('host') + '/usuarios/list/gradosanteriores/';
+                this.$.ajaxGrado.generateRequest();
+            }
+
+        });
+    </script>
+</dom-module>

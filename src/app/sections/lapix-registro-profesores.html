@@ -1,0 +1,73 @@
+<link rel="import" href="../../elements.html">
+
+<dom-module id="lapix-registro-profesores">
+
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            paper-toolbar{
+                --paper-toolbar-background: #cfd8dd;
+                --paper-toolbar-color: #000;
+            }
+        </style>
+        <iron-ajax id="set" handle-as="json" content-type="application/x-www-form-urlencoded" method="post"></iron-ajax>
+        <app-header condenses reveals effects="waterfall">
+            <paper-toolbar class="tall">
+                <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+                <div class="title">Lapix</div>
+                <paper-icon-button icon="cached" on-tap="_winReload"></paper-icon-button>
+                <paper-icon-button icon="bug-report" on-tap="_openDevTools"></paper-icon-button>
+            </paper-toolbar>
+        </app-header>
+        <lapix-table id="dt" site="/usuarios/list/profesores/" label="Profesores" property="identificacion">
+            <paper-datatable-column header="Identificación" type="String" property="identificacion" sortable></paper-datatable-column>
+            <paper-datatable-column header="Profesor" property="nombre">
+                <template>
+                    <span>{{value.first_name}}</span>
+                    <span>{{value.last_name}}</span>
+                </template>
+            </paper-datatable-column>
+            <paper-datatable-column header="Horario" property="horario" editable>
+                <template>
+                    <paper-icon-button icon="horario"></paper-icon-button>
+                </template>
+            </paper-datatable-column>
+            <paper-datatable-column header="Actividades" property="actividades" editable>
+                <template>
+                    <paper-icon-button icon="actividades"></paper-icon-button>
+                </template>
+            </paper-datatable-column>
+            <paper-datatable-column header="Estado" property="status" editable>
+                <template>
+                    <paper-toggle-button checked="{{value}}"></paper-toggle-button>
+                </template>
+            </paper-datatable-column>
+        </lapix-table>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'lapix-registro-profesores',
+            behaviors: [LapixBehavior],
+            listeners: {
+                'set.response': '_onResponse',
+                'set.error': '_onError'
+            },
+            ready: function() {
+                this.$.dt.cleanParameter = (item) => {
+                    delete item.servicios;
+                    item['first_name'] = item.nombre.first_name;
+                    item['last_name'] = item.nombre.last_name;
+                    delete item.nombre;
+                    delete item.actividades;
+                    delete item.horario;
+                    return item;
+                };
+            }
+        });
+    </script>
+
+</dom-module>

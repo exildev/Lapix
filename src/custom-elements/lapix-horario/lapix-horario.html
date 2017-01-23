@@ -1,0 +1,71 @@
+<link rel="import" href="../../elements.html">
+<dom-module id="lapix-horario">
+    <template>
+        <style include="iron-flex"></style>
+        <style>
+            :host{
+                display: block;
+                height: 400px;
+                background: var(--lapix-horario-background, #555);
+                color: var(--lapix-horario-color, white);
+            }
+            .horario_content{
+                height: 100%;
+            }
+            .horario_content > ul{
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+            }
+            .horario_content > ul > li{
+                list-style: none;
+            }
+            .horario_content > ul > li > div {
+                border: 1px solid white;
+                text-align: center;
+            }
+            .horario_content > ul > li > ul{
+                border: 1px solid white;
+            }
+        </style>
+        <div class="horario_content">
+            <ul class="layout horizontal flex">
+                <template is="dom-repeat" items="[[week]]">
+                    <li class="layout vertical flex">
+                        <div>[[item.date]]</div>
+                        <ul class="flex">
+                            hola mindo
+                        </ul>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "lapix-horario",
+            properties: {
+                week: {
+                    type: Object,
+                    notify: true,
+                    value: () => {
+                        let now = new Date();
+                        let res = [];
+                        for (let i = 1; i < 7; i++) {
+                            let date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay() + i);
+                            res.push({
+                                day: date.getDay(),
+                                date: date.getDate(),
+                                month: date.getMonth(),
+                                year: date.getFullYear()
+                            });
+                        }
+                        return res;
+                    }
+                }
+            }
+
+        });
+    </script>
+</dom-module>

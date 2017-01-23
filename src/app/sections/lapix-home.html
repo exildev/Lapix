@@ -1,0 +1,120 @@
+<link rel="import" href="../../elements.html">
+<dom-module id="lapix-home">
+    <template>
+        <style include="iron-flex"></style>
+        <style >
+            :host {
+                display: block;
+                /*padding: 10px;*/
+            }
+            .content{
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            .card {
+                box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                padding: 16px;
+                margin: 24px;
+                border-radius: 3px;
+                background-color: #fff;
+                color: #757575;
+            }
+            .circle {
+                display: inline-block;
+                height: 64px;
+                width: 64px;
+                border-radius: 50%;
+                background: #ddd;
+                line-height: 64px;
+                font-size: 30px;
+                color: #555;
+                text-align: center;
+            }
+            h1 {
+                font-size: 22px;
+                margin: 16px 0;
+                color: #212121;
+            }
+            :host ul{
+                padding: 0;
+                margin: 0;
+            }
+            :host ul > li{
+                list-style: none;
+            }
+        </style>
+        <app-header condenses reveals effects="waterfall">
+            <paper-toolbar>
+                <paper-icon-button id="drawer_toggle" icon="menu" on-tap="_drawer_toggle"></paper-icon-button>
+                <div class="title">Lapix</div>
+                <paper-icon-button icon="cached" on-tap="_winReload"></paper-icon-button>
+                <paper-icon-button icon="bug-report" on-tap="_openDevTools"></paper-icon-button>
+                <paper-icon-button icon="settings" on-tap="_onAlert"></paper-icon-button>
+            </paper-toolbar>
+        </app-header>
+        <!--.content>ul.layout.vertical>li.flex*6(ul.layout.horizontal>li.flex.card*4) -->
+        <div class="content">
+            <ul class="layout vertical">
+                <li class="flex">
+                    <ul class="layout horizontal">
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                    </ul>
+                </li>
+                <li class="flex">
+                    <ul class="layout horizontal">
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                    </ul>
+                </li>
+                <li class="flex">
+                    <ul class="layout horizontal">
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                    </ul>
+                </li>
+                <li class="flex">
+                    <ul class="layout horizontal">
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                    </ul>
+                </li>
+                <li class="flex">
+                    <ul class="layout horizontal">
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                    </ul>
+                </li>
+                <li class="flex">
+                    <ul class="layout horizontal">
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                        <li class="flex card"></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <paper-input name="imagen" type="file" label="Imagen"></paper-input>
+        <paper-button raised>button</paper-button>
+    </template>
+    <script>
+        Polymer({
+            is: 'lapix-home',
+            behaviors: [LapixBehavior],
+            _onAlert: function(){
+                this._dtLoad('conf.html');
+            }
+        });
+    </script>
+</dom-module>

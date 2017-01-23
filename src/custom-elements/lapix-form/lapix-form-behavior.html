@@ -1,0 +1,42 @@
+<script>
+    LapixFormBehavior = {
+        properties: {
+            values: {
+                type: Object,
+                observer: '_observerValues'
+            },
+            add: {
+                type: Boolean,
+                value: false
+            },
+            action: String,
+        },
+        _observerValues: function(params) {
+            if(params){
+                for (var key in params) {
+                    if (params.hasOwnProperty(key)) {
+                        let item = this.$.form.querySelector('[name="'+key+'"]');
+                        if(item){
+                            if(item.nextElementSibling && item.nextElementSibling.tagName === "PAPER-DROPDOWN-MENU"){
+                                console.log('entro', this.values[key]);
+                                let list = item.nextElementSibling.querySelector('paper-listbox');
+                                list.selected = -1;
+                                list.selected = this.values[key];
+                            }else{
+                                item.value = this.values[key];
+                            }
+                        }
+                    }
+                }
+            }else{
+                this.reset();
+            }
+        },
+        reset: function () {
+            this.$.form.reset();
+        },
+        submit: function () {
+            this.$.form.submit();
+        }
+    }
+</script>

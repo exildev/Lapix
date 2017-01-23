@@ -1,0 +1,157 @@
+<link rel="import" href="../../elements.html">
+
+<dom-module id="lapix-app">
+
+    <template>
+
+        <style>
+
+            :host {
+                display: block;
+                --app-primary-color: #4285f4;
+                --app-secondary-color: black;
+                --lapix-accent: #febe04;
+                --lapix-accent-dark: #f67c01;
+                --lapix-header: #cfd8dd;
+                --lapix-text: black;
+            }
+
+            app-header {
+                background-color: var(--app-primary-color);
+                color: #fff;
+            }
+
+            paper-toolbar{
+                --paper-toolbar-background: #cfd8dd;
+                --paper-toolbar-color: #000;
+            }
+
+            app-drawer{
+                --app-drawer-content-container: {
+                    background-color: #fef8e2;
+                }
+            }
+
+            app-drawer  paper-toolbar{
+                --paper-toolbar-background: #616161;
+            }
+
+            app-drawer .drawer-list paper-submenu paper-menu{
+                --paper-menu-background-color: #fef8e2;
+            }
+
+            app-drawer .drawer-list paper-submenu paper-menu paper-item {
+                --paper-item: {
+                    padding-left: 90px;
+                };
+            }
+
+            #dr:not(.narrow) ::content [drawer-toggle] {
+                display: none;
+            }
+
+            #logo{
+                cursor: pointer;
+            }
+
+            .drawer-list {
+                margin: 0;
+                color: #616161;
+                --paper-menu-background-color: #fef8e2;
+            }
+
+            .drawer-list > paper-icon-item{
+                cursor: pointer;
+                --paper-item-selected: {
+                    color: #edaa4f;
+                };
+            }
+
+            #logo{
+                cursor: pointer;
+            }
+        </style>
+
+        <app-drawer-layout id="dr" fullbleed>
+            <!-- Drawer content -->
+            <app-drawer >
+                <paper-toolbar class="tall">
+                    <img id="logo" class="middle" src="../../../images/logo_lapix_desktop_horizontal.svg" alt="Logo">
+                    <div class="bottom title">Menu</div>
+                </paper-toolbar>
+                <paper-menu id="menu" selected="{{page}}" attr-for-selected="name" class="drawer-list" role="navigation">
+                    <paper-icon-item name="home">
+                        <iron-icon icon="extension" item-icon></iron-icon>Dashboard
+                    </paper-icon-item>
+                    <paper-submenu>
+                        <paper-icon-item class="menu-trigger" >
+                            <iron-icon icon="settings" item-icon></iron-icon>Registros
+                        </paper-icon-item>
+                        <paper-menu class="menu-content" selected="{{page}}" attr-for-selected="name">
+                            <paper-item name="registro-profesores">Profesores</paper-item>
+                            <paper-item name="registro-estudiantes">Estudiantes</paper-item>
+                        </paper-menu>
+                    </paper-submenu>
+                    <paper-icon-item name="view1">
+                        <iron-icon icon="extension" item-icon></iron-icon>view1
+                    </paper-icon-item>
+                    <paper-icon-item name="view2">
+                        <iron-icon icon="settings" item-icon></iron-icon>view2
+                    </paper-icon-item>
+                </paper-menu>
+            </app-drawer>
+            <!-- Main content -->
+            <app-header-layout has-scrolling-region>
+                <iron-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name">
+                    <lapix-home   name="home" bar="[[drawer]]"></lapix-home>
+                    <lapix-view1  name="view1" bar="[[drawer]]"></lapix-view1>
+                    <lapix-view2  name="view2" bar="[[drawer]]"></lapix-view2>
+                    <lapix-registro-profesores  name="registro-profesores" bar="[[drawer]]"></lapix-registro-profesores>
+                    <lapix-registro-estudiantes  name="registro-estudiantes" bar="[[drawer]]"></lapix-registro-estudiantes>
+                </iron-pages>
+            </app-header-layout>
+        </app-drawer-layout>
+    </template>
+
+    <script>
+        Polymer({
+
+            is: 'lapix-app',
+
+            behaviors: [LapixBehavior],
+
+            properties: {
+                page: {
+                    type: String,
+                    notify: true,
+                    value: 'home',
+                    reflectToAttribute: true,
+                    observer: '_pageChanged'
+                }
+            },
+
+            listeners: {
+                'logo.tap': '_onGoToHome'
+            },
+
+            ready: function() {
+                window.lapix = window.lapix || {};
+                window.lapix.app = this;
+            },
+
+            _pageChanged: function(page, oldPage) {
+                if(page){
+                    this.importHref(this.resolveUrl('../sections/lapix-' + page + '.html'), null, null, true);
+                }else{
+                    this.page = oldPage;
+                }
+            },
+
+            _onGoToHome: function () {
+                this.page = 'home';
+            }
+
+        });
+    </script>
+
+</dom-module>

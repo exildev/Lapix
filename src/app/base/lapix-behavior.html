@@ -1,0 +1,34 @@
+<script>
+    LapixBehavior = {
+        ready: function(){
+            // console.log(this._parents(this.$.drawer_toggle, 'app-drawer-layout'));
+        },
+        properties: {
+            bar: {
+                type: Object
+            }
+        },
+        _openDevTools: () => ipc.send('devtools'),
+        _winReload: () => ipc.send('win-reload'),
+        _dtLoad: f => ipc.send('dt-load', {
+            file: f
+        }),
+        _drawer_toggle: function(e) {
+            let drawer = e.path[23].drawer;
+            if (drawer && !drawer.persistent) {
+                drawer.toggle();
+            }
+
+        },
+        _parents: function (el, tag) {
+            while (el.parentNode) {
+                el = el.parentNode;
+                // console.log(el.tagName, '===', tag, el.tagName === tag);
+                if (el.tagName === tag){
+                    return el;
+                }
+            }
+            return null;
+        }
+    }
+</script>

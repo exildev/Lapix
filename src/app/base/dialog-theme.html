@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <script src="../../../desktop/init-renderer-packs.js" charset="utf-8"></script>
+    <script src="../../../src/load.js"></script>
+
+    <link rel="import" href="../../../src/elements.html">
+
+    <style>
+        @keyframes fadein {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', 'Noto', sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            background-color: #eee;
+            -webkit-user-select: none;
+            -webkit-user-drag: text;
+            cursor: default;
+            animation: fadein 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <dom-module id="lapix-dialog">
+        <style>
+             :host {
+                display: block;
+            }
+
+             :host paper-icon-button {
+                -webkit-app-region: no-drag
+            }
+
+             :host paper-toolbar {
+                -webkit-app-region: drag;
+            }
+        </style>
+        <template>
+            <iron-ajax id="ajax"
+            handle-as="text"
+            on-response="handleResponse"></iron-ajax>
+            <paper-toolbar>
+                <div class="title">Dialogo</div>
+                <paper-icon-button icon="close" on-tap="_moreAction"></paper-icon-button>
+            </paper-toolbar>
+            <div id="main_content"></div>
+        </template>
+        <script>
+            Polymer({
+                is: "lapix-dialog",
+                properties: {
+                    params: {
+                        type: Object,
+                        value: {}
+                    }
+                },
+                ready: function() {
+                    window.location.search.substring(1).split('&').forEach((item) => {
+                        let val = item.split('=');
+                        this.params[val[0]] = val[1];
+                    });
+                    console.log(this.params.url);
+                    this.$.ajax.url = this.params.url;
+                    this.$.ajax.generateRequest();
+                },
+                _moreAction: function() {
+                    ipc.send('dt-close');
+                },
+                handleResponse: function(data){
+                    this.$.main_content.innerHTML = data.detail.response;
+                }
+            });
+        </script>
+    </dom-module>
+    <lapix-dialog></lapix-dialog>
+</body>
+
+</html>
