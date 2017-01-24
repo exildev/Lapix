@@ -89,8 +89,8 @@ ENV/
 .ropeproject
 
 #Cliente Electrom
-bower_components
-dist
-node_modules
-build
+cliente-administrador/bower_components
+cliente-administrador/dist
+cliente-administrador/node_modules
+cliente-administrador/build
 .vscode
