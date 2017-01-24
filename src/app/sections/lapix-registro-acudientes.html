@@ -1,6 +1,6 @@
 <link rel="import" href="../../elements.html">
-<link rel="import" href="../forms/form-profesor.html">
-<dom-module id="lapix-registro-profesores">
+<link rel="import" href="../forms/form-acudiente.html">
+<dom-module id="lapix-registro-acudientes">
 
     <template>
         <style>
@@ -22,7 +22,7 @@
                 <paper-icon-button icon="bug-report" on-tap="_openDevTools"></paper-icon-button>
             </paper-toolbar>
         </app-header>
-        <lapix-table id="dt" site="/usuarios/list/profesores/" label="Profesores" property="identificacion">
+        <lapix-table id="dt" site="/usuarios/list/acudiente/" label="Profesores" property="identificacion">
             <paper-datatable-column header="Identificación" type="String" property="identificacion" sortable></paper-datatable-column>
             <paper-datatable-column header="Profesor" property="nombre">
                 <template>
@@ -30,28 +30,19 @@
                     <span>{{value.last_name}}</span>
                 </template>
             </paper-datatable-column>
-            <paper-datatable-column header="Horario" property="horario" editable>
-                <template>
-                    <paper-icon-button icon="horario"></paper-icon-button>
-                </template>
-            </paper-datatable-column>
-            <paper-datatable-column header="Actividades" property="actividades" editable>
-                <template>
-                    <paper-icon-button icon="actividades"></paper-icon-button>
-                </template>
-            </paper-datatable-column>
+            <paper-datatable-column header="Correo Electronico" property="email" sortable></paper-datatable-column>>
             <paper-datatable-column header="Estado" property="status" editable>
                 <template>
                     <paper-toggle-button checked="{{value}}"></paper-toggle-button>
                 </template>
             </paper-datatable-column>
-            <form-profesor form></form-profesor>
+            <form-acudiente form></form-acudiente>
         </lapix-table>
     </template>
 
     <script>
         Polymer({
-            is: 'lapix-registro-profesores',
+            is: 'lapix-registro-acudientes',
             behaviors: [LapixBehavior],
             ready: function() {
                 this.$.dt.cleanParameter = (item) => {
@@ -59,8 +50,6 @@
                     item['first_name'] = item.nombre.first_name;
                     item['last_name'] = item.nombre.last_name;
                     delete item.nombre;
-                    delete item.actividades;
-                    delete item.horario;
                     return item;
                 };
             }

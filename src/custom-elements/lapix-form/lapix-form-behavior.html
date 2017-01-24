@@ -18,7 +18,6 @@
                         let item = this.$.form.querySelector('[name="'+key+'"]');
                         if(item){
                             if(item.nextElementSibling && item.nextElementSibling.tagName === "PAPER-DROPDOWN-MENU"){
-                                console.log('entro', this.values[key]);
                                 let list = item.nextElementSibling.querySelector('paper-listbox');
                                 list.selected = -1;
                                 list.selected = this.values[key];

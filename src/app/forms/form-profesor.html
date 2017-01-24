@@ -1,9 +1,79 @@
-<p><label for="id_email">Dirección de correo electrónico:</label> <input id="id_email" maxlength="254" name="email" type="email" /></p>
-<p><label for="id_first_name">Nombre:</label> <input id="id_first_name" maxlength="30" name="first_name" type="text" /></p>
-<p><label for="id_last_name">Apellidos:</label> <input id="id_last_name" maxlength="30" name="last_name" type="text" /></p>
-<p><label for="id_identificacion">* Identificación:</label> <input id="id_identificacion" name="identificacion" type="number" required /></p>
-<p><label for="id_direccion">* Dirección:</label> <input id="id_direccion" maxlength="400" name="direccion" type="text" required /></p>
-<p><label for="id_telefono">* Telefono:</label> <input id="id_telefono" name="telefono" type="number" required /></p>
-<p><label for="id_fecha">* Fecha de Nacimiento:</label> <input class="date" id="id_fecha" name="fecha" type="text" required /></p>
-<p><label for="id_imagen">Imagen:</label> <input id="id_imagen" name="imagen" type="file" /></p>
-<p><label for="id_hoja_vida">Hoja de Vida:</label> <input id="id_hoja_vida" name="hoja_vida" type="file" /></p>
+<link rel="import" href="../../elements.html">
+<dom-module id="form-profesor">
+    <style include="iron-flex"></style>
+    <style>
+        :host {
+            display: block;
+        }
+        paper-input, paper-dropdown-menu{
+            margin: 8px;
+        }
+        .horizontal{
+            min-width: 300px;
+        }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+    </style>
+    <template>
+        <form is="iron-form" id="form" method="post" action$="[[action]]">
+            <template is="dom-if" if="[[add]]">
+                <div class="layout vertical">
+                    <div class="layout horizontal wrap">
+                        <paper-input char-counter maxlength="150" name="username" type="text" required
+                            auto-validate error-message="Este campo es requerido" label="Nombre de usuario" autofocus></paper-input>
+                    </div>
+                    <div class="layout horizontal wrap">
+                        <paper-input name="password1" type="password" required
+                            auto-validate error-message="Este campo es requerido" label="Contraseña"></paper-input>
+                        <paper-input name="password2" type="password" required
+                            auto-validate error-message="Este campo es requerido" label="Confirmar contraseña"></paper-input>
+                    </div>
+                </div>
+            </template>
+            <div class="layout vertical">
+                <div class="layout horizontal warp">
+                    <paper-input label="Nombre" maxlength="30" name="first_name" type="text" required
+                        auto-validate error-message="Este campo es requerido"></paper-input>
+                    <paper-input label="Apellidos" maxlength="30" name="last_name" type="text" required
+                        auto-validate error-message="Este campo es requerido"></paper-input>
+                </div>
+                <div class="layout horizontal warp">
+                    <paper-input label="Identificación" name="identificacion" type="number" required
+                        auto-validate error-message="Este campo es requerido" ></paper-input>
+                    <paper-input label="Fecha de Nacimiento" name="fecha" type="date" required
+                        auto-validate error-message="Este campo es requerido" ></paper-input>
+                </div>
+                <div class="layout horizontal warp">
+                    <paper-input label="Dirección de correo electrónico" maxlength="254" name="email" type="email" ></paper-input>
+                    <paper-input label="Telefono" name="telefono" type="number" required
+                        auto-validate error-message="Este campo es requerido" ></paper-input>
+                </div>
+                <div class="layout horizontal warp">
+                    <paper-input class="flex" label="Dirección" maxlength="400" name="direccion" type="text" required
+                        auto-validate error-message="Este campo es requerido" ></paper-input>
+                </div>
+                <div class="layout horizontal warp">
+                     <paper-input class="flex" label="Imagen" name="imagen" type="file" ></paper-input>
+                </div>
+                <div class="layout horizontal warp">
+                     <paper-input class="flex" label="Hoja de Vida" name="hoja_vida" type="file" ></paper-input>
+                </div>
+                <input name="asignacionsede_set-TOTAL_FORMS"   type="hidden" value="1" />
+                <input name="asignacionsede_set-INITIAL_FORMS" type="hidden" value="0" />
+                <input name="asignacionsede_set-MAX_NUM_FORMS" type="hidden" value="1000" />
+                <input name="asignacionsede_set-MIN_NUM_FORMS" type="hidden" value="0" />
+            </div>
+        </form>
+    </template>
+    <script>
+        Polymer({
+            is: "form-profesor",
+            behaviors: [LapixFormBehavior]
+        });
+    </script>
+</dom-module>
