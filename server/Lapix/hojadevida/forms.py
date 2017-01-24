@@ -66,7 +66,7 @@ class EditProfesor(forms.ModelForm):
 
     class Meta:
         model = models.Profesor
-        fields = ['first_name', 'last_name', 'identificacion', 'direccion', 'telefono', 'fecha', 'status', 'email', 'email', 'status', 'eliminado']
+        fields = ['first_name', 'last_name', 'identificacion', 'direccion', 'email', 'telefono', 'fecha', 'status', 'email', 'email', 'status', 'eliminado']
         widgets = {
             "fecha_nacimiento": DatePickerWidget(attrs={'class': 'date'}, format="%m/%d/%Y"),
             "identificacion": forms.NumberInput(),
@@ -136,7 +136,7 @@ class EdirEstudiante(forms.ModelForm):
 
     class Meta:
         model = models.Estudiante
-        fields = ['first_name', 'last_name', 'identificacion', 'direccion', 'telefono', 'fecha', 'grado', 'imagen', 'codigo_Estudiante', 'colegio_Anterior', 'eliminado']
+        fields = ['first_name', 'last_name', 'identificacion', 'direccion', 'email', 'telefono', 'fecha', 'grado', 'imagen', 'codigo_Estudiante', 'colegio_Anterior', 'eliminado']
         widgets = {
             "fecha_nacimiento": DatePickerWidget(attrs={'class': 'date'}, format="%m/%d/%Y"),
             "identificacion": forms.NumberInput(),
@@ -190,7 +190,7 @@ class EditAcudiente(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EditAcudiente, self).__init__(*args, **kwargs)
         self.fields['fecha'].input_formats = (
-            '%Y/%m/%d', '%d/%m/%Y', '%m/%d/%Y', '%Y-%m-%d')
+            '%Y/%m/%d', '%d/%m/%Y', '%m/%d/%Y', '')
     # end def
 
     def clean_imagen(self):
