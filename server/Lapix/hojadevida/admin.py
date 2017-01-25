@@ -15,7 +15,7 @@ class AsignacionSedeStack(admin.StackedInline):
 
 
 class ProfesorAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'identificacion',
+    list_display = ('identificacion', 'first_name', 'last_name',
                     'fecha', 'telefono', 'direccion', 'status', 'eliminado')
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_editable = ('eliminado',)
@@ -33,7 +33,7 @@ class ProfesorAdmin(admin.ModelAdmin):
 
 
 class EstudianteAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'identificacion', 'fecha', 'telefono',
+    list_display = ('identificacion', 'first_name', 'last_name', 'fecha', 'telefono',
                     'direccion', 'grado', 'codigo_Estudiante', 'colegio_Anterior', 'status', 'eliminado')
     search_fields = ('first_name', 'last_name', 'identificacion')
     list_filter = ('sexo', 'grado', 'status')
