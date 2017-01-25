@@ -28,7 +28,24 @@ class ProfesorForm(UserCreationForm):
                 raise forms.ValidationError(
                     "El tamaño de la imagen no puede ser superior a 1 mega")
             # end if
-            ret
+            return imagen
+        # end if
+    # end def
+
+    def clean_fecha(self):
+        fecha = self.cleaned_data.get('fecha', False)
+        if fecha:
+            if fecha.year < 1900:
+                raise forms.ValidationError(
+                    "El año debe ser mayor a 1900"
+                )
+            # end if
+            return fecha
+        # end if
+        raise forms.ValidationError(
+            "Este campo es requerido"
+        )
+    # end def
 
     class Meta:
         model = models.Profesor
@@ -62,6 +79,21 @@ class EditProfesor(forms.ModelForm):
             # end if
             return imagen
         # end if
+    # end def
+
+    def clean_fecha(self):
+        fecha = self.cleaned_data.get('fecha', False)
+        if fecha:
+            if fecha.year < 1900:
+                raise forms.ValidationError(
+                    "El año debe ser mayor a 1900"
+                )
+            # end if
+            return fecha
+        # end if
+        raise forms.ValidationError(
+            "Este campo es requerido"
+        )
     # end def
 
     class Meta:
@@ -98,7 +130,24 @@ class EstudianteForm(UserCreationForm):
                 raise forms.ValidationError(
                     "El tamaño de la imagen no puede ser superior a 1 mega")
             # end if
-            ret
+            return imagen
+        # end if
+    # end def
+
+    def clean_fecha(self):
+        fecha = self.cleaned_data.get('fecha', False)
+        if fecha:
+            if fecha.year < 1900:
+                raise forms.ValidationError(
+                    "El año debe ser mayor a 1900"
+                )
+            # end if
+            return fecha
+        # end if
+        raise forms.ValidationError(
+            "Este campo es requerido"
+        )
+    # end def
 
     class Meta:
         model = models.Estudiante
@@ -132,6 +181,21 @@ class EdirEstudiante(forms.ModelForm):
             # end if
             return imagen
         # end if
+    # end def
+
+    def clean_fecha(self):
+        fecha = self.cleaned_data.get('fecha', False)
+        if fecha:
+            if fecha.year < 1900:
+                raise forms.ValidationError(
+                    "El año debe ser mayor a 1900"
+                )
+            # end if
+            return fecha
+        # end if
+        raise forms.ValidationError(
+            "Este campo es requerido"
+        )
     # end def
 
     class Meta:
@@ -168,7 +232,24 @@ class AcudienteForm(UserCreationForm):
                 raise forms.ValidationError(
                     "El tamaño de la imagen no puede ser superior a 1 mega")
             # end if
-            ret
+            return imagen
+        # end if
+    # end def
+
+    def clean_fecha(self):
+        fecha = self.cleaned_data.get('fecha', False)
+        if fecha:
+            if fecha.year < 1900:
+                raise forms.ValidationError(
+                    "El año debe ser mayor a 1900"
+                )
+            # end if
+            return fecha
+        # end if
+        raise forms.ValidationError(
+            "Este campo es requerido"
+        )
+    # end def
 
     class Meta:
         model = models.Acudiente
@@ -202,6 +283,21 @@ class EditAcudiente(forms.ModelForm):
             # end if
             return imagen
         # end if
+    # end def
+
+    def clean_fecha(self):
+        fecha = self.cleaned_data.get('fecha', False)
+        if fecha:
+            if fecha.year < 1900:
+                raise forms.ValidationError(
+                    "El año debe ser mayor a 1900"
+                )
+            # end if
+            return fecha
+        # end if
+        raise forms.ValidationError(
+            "Este campo es requerido"
+        )
     # end def
 
     class Meta:
