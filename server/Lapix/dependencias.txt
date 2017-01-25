@@ -2,3 +2,4 @@ Django==1.10.4
 exileui==0.1.9.13
 Pillow==3.4.2
 supra==1.1.36
+psycopg2

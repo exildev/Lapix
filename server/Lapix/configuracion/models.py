@@ -4,8 +4,9 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
+import datetime
 # Create your models here.
+
 
 class Colegio(models.Model):
     TIPOS_DE_COLEGIO = ((1,'Unico'),(2, 'Multiples'))
@@ -14,7 +15,9 @@ class Colegio(models.Model):
     nit = models.CharField(max_length=800)
     registro = models.CharField(max_length=900)
     nombre = models.CharField(max_length=800)
-    year = models.IntegerField()
+    tipo = models.IntegerField(choices=TIPOS_DE_COLEGIO, default=1, verbose_name="Tipo de colegio")
+    jornada = models.IntegerField(choices=TIPOS_DE_JORNADA, default=1, verbose_name="Tipo de jornadas")
+    year = models.IntegerField(verbose_name="Año", default=datetime.datetime.now().year)
 
     def __unicode__(self):
         return u'%s'%self.nombre
