@@ -5,6 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import datetime
 import models
+import forms
 # Create your views here.
 
 
@@ -34,4 +35,11 @@ class ColegioType(supra.SupraListView):
         query = super(ColegioType, self).get_queryset()
         return query.filter(year=datetime.datetime.now().year)
     # end def
+# end class
+
+
+class SedeFormView(supra.SupraFormView):
+    model = models.Sede
+    template_name = 'configuracion/addSede.html'
+    form_class = forms.SedeForm
 # end class
