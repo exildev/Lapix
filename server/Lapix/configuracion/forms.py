@@ -3,6 +3,14 @@ from django import forms
 import models
 
 
+class SedeForm(forms.ModelForm):
+    class Meta:
+        model = models.Sede
+        fields = ['nombre', 'registro', 'direccion',]
+        exclude = ['estado',]
+    # end class
+# end class
+
 class ColegioForm(forms.ModelForm):
     class Meta:
         model = models.Colegio
