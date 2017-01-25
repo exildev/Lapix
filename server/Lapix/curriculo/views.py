@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from supra import views as supra
 from curriculo import models
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 
 
