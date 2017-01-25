@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hojadevida.apps.HojadevidaConfig',
     'supra',
-    'configuracion'
+    'configuracion',
+    'curriculo',
+    'horario',
     ]
 
 EXILE_UI = {
