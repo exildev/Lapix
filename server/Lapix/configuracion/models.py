@@ -7,6 +7,23 @@ from django.db import models
 
 # Create your models here.
 
+class Colegio(models.Model):
+    TIPOS_DE_COLEGIO = ((1,'Unico'),(2, 'Multiples'))
+    TIPOS_DE_JORNADA = ((1,'Unica'),(2, 'Multiples'))
+
+    nit = models.CharField(max_length=800)
+    registro = models.CharField(max_length=900)
+    nombre = models.CharField(max_length=800)
+    year = models.IntegerField()
+
+    def __unicode__(self):
+        return u'%s'%self.nombre
+    # end def
+
+    def __str__(self):
+        return u'%s'%self.nombre
+    # end def
+# end class
 
 class Sede(models.Model):
     nombre = models.CharField(max_length=200, unique=True)
