@@ -7,11 +7,31 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
+def deleteFactory(id, tipo):
+    if tipo == 1:
+        obj = models.Area.objects.filter(id=id).first()
+    elif tipo == 2:
+        obj = models.Materia.objects.filter(id=id).first()
+    elif tipo == 3:
+        obj = models.Grado.objects.filter(id=id).first()
+    elif tipo == 4:
+        obj = models.Curso.objects.filter(id=id).first()
+    # end if
+    if obj:
+        obj.eliminado = True
+        obj.save()
+        return response([], 200)
+    # end if
+    return response([], 404)
+# end def
+
+
 class AreaList(supra.SupraListView):
     model = models.Area
     search_key = "q"
+    list_filter = ['id', ]
     list_display = ['nombre', 'canhora', 'profesoresList', 'servicios']
-    search_fields = ['nombre',]
+    search_fields = ['nombre', ]
     paginate_by = 10
 
     def servicios(self, obj, row):
@@ -48,3 +68,19 @@ class AreaList(supra.SupraListView):
         return queryset2
     # end def
 # end class
+
+
+class AreaForm(supra.SupraFormView):
+    model = models.Area
+    response_json = False
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(AreaForm, self).dispatch(request, *args, **kwargs)
+    # end def
+# end class
+
+
+def delteArea(request, id):
+    return deleteFactory(id, 1)
+# end def

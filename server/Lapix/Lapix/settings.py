@@ -74,6 +74,15 @@ EXILE_UI = {
                     'GradoEntrante': {'icon': 'settings', 'group': 'Configuración'}
                 }
             },
+            'curriculo': {
+                'icon': 'start_rate',
+                'groups': [
+                    'Curriculo',
+                ],
+                'models': {
+                    'Area': {'icon': 'public', 'group': 'Curriculo'}
+                }
+            },
             'configuracion': {
                 'icon': 'settings',
                 'groups': [
@@ -109,6 +118,12 @@ MENU_ORDER = [
             'Acudiente',
             'AsignacionSede',
             'GradoEntrante'
+        ]
+    },
+    {
+        'name': 'curriculo',
+        'models': [
+            'Area',
         ]
     },
     {

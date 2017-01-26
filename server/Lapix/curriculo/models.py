@@ -16,6 +16,7 @@ class Area(models.Model):
     # cantidad de horas asignadas para una area
     canhora = models.IntegerField("Cantidad de Horas")
     profesores = models.ManyToManyField(hoja.Profesor)
+    eliminado = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['nombre']

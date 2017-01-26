@@ -18,6 +18,23 @@ from django.views.decorators.csrf import csrf_exempt
 supra.SupraConf.ACCECC_CONTROL["allow"] = True
 
 
+def deleteFactory(id, tipo):
+    if tipo == 1:
+        obj = models.Profesor.objects.filter(id=id).first()
+    elif tipo == 2:
+        obj = models.Estudiante.objects.filter(id=id).first()
+    elif tipo == 3:
+        obj = models.Acudiente.objects.filter(id=id).first()
+    # end if
+    if obj:
+        obj.eliminado = True
+        obj.save()
+        return response([], 200)
+    # end if
+    return response([], 404)
+# end def
+
+
 class ProfesorList(supra.SupraListView):
     model = models.Profesor
     search_key = 'q'
@@ -110,13 +127,7 @@ class ProfesorFormAdd(supra.SupraFormView):
 
 
 def deleteProfesor(request, id):
-    profesor = models.Profesor.objects.filter(id=id).first()
-    if profesor:
-        profesor.eliminado = True
-        profesor.save()
-        return response([], 200)
-    # end if
-    return response([], 404)
+    return deleteFactory(id, 1)
 # end def
 
 
@@ -189,13 +200,7 @@ class EstudianteFormAdd(supra.SupraFormView):
 
 
 def deleteEstudiante(request, id):
-    estudiante = models.Estudiante.objects.filter(id=id).first()
-    if estudiante:
-        estudiante.eliminado = True
-        estudiante.save()
-        return response([], 200)
-    # end if
-    return response([], 404)
+    return deleteFactory(id, 2)
 # end def
 
 
@@ -231,7 +236,7 @@ class AcudienteList(supra.SupraListView):
     def date(self, obj, row):
         return obj.fecha.strftime("%Y-%m-%d")
     # end def
-    
+
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(AcudienteList, self).dispatch(request, *args, **kwargs)
@@ -280,13 +285,7 @@ class AcudienteFormAdd(supra.SupraFormView):
 
 
 def deleteAcudiente(request, id):
-    acudiente = models.Acudiente.objects.filter(id=id).first()
-    if acudiente:
-        acudiente.eliminado = True
-        acudiente.save()
-        return response([], 200)
-    # end if
-    return response([], 404)
+    return deleteFactory(id, 3)
 # end def
 
 
