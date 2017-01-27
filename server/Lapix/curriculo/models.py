@@ -23,7 +23,7 @@ class Area(models.Model):
     # endclass
 
     def __unicode__(self):
-        return u"%s" % (self.nombre_area)
+        return u"%s" % (self.nombre)
     # end def
 
     def save(self, *args, **kwargs):
@@ -36,6 +36,7 @@ class Area(models.Model):
 class Materia(models.Model):
     area = models.ForeignKey(Area)
     nombre = models.CharField(max_length=20, unique=True)  # nombre del materia
+    eliminado = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['nombre']
@@ -55,6 +56,7 @@ class Materia(models.Model):
 class Grado(models.Model):
     nombre = models.CharField(max_length=10, unique=True)  # nombre del grado
     valor = models.IntegerField(default=0)
+    eliminado = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['nombre']
@@ -79,6 +81,7 @@ class Curso(models.Model):
     director = models.ForeignKey(hoja.Profesor, verbose_name="Director de Grupo")
     grado = models.ForeignKey(Grado)
     anio = models.IntegerField("Año", default=date.today().year)
+    eliminado = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['nombre']

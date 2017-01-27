@@ -11,4 +11,11 @@ class AreaAdmin(admin.ModelAdmin):
 # end class
 
 
+class MateriaAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'area', 'eliminado')
+    search_fields = ('nombre',)
+# end class
+
+
 exileui.register(models.Area, AreaAdmin)
+exileui.register(models.Materia, MateriaAdmin)

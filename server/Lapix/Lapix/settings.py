@@ -77,10 +77,11 @@ EXILE_UI = {
             'curriculo': {
                 'icon': 'start_rate',
                 'groups': [
-                    'Curriculo',
+                    'Curriculo'
                 ],
                 'models': {
-                    'Area': {'icon': 'public', 'group': 'Curriculo'}
+                    'Area': {'icon': 'public', 'group': 'Curriculo'},
+                    'Materia': {'icon': 'widgets', 'group': 'Curriculo'}
                 }
             },
             'configuracion': {
@@ -124,6 +125,7 @@ MENU_ORDER = [
         'name': 'curriculo',
         'models': [
             'Area',
+            'Materia'
         ]
     },
     {
