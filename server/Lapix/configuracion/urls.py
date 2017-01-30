@@ -18,6 +18,8 @@ urlpatterns = [
         views.SedeFormView.as_view(), name="add_sede"),
     url(r'^edit/sede/(?P<pk>\d+)/$',
         views.SedeFormView.as_view(), name="edit_sede"),
+    url(r'^delete/sede/(?P<pk>\d+)/$',
+        views.SedeFormView.as_view(), name="edit_sede"),
 ]
 
 

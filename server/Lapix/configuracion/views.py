@@ -21,6 +21,20 @@ class SedesList(supra.SupraListView):
     # end def
 # end class
 
+class BuilderDelete():
+    @staticmethod
+    def eraseModel(pk, op):
+        if op == 1:
+            obj = models.Sede.objects.filter(id=pk).first()
+        #end if
+        if obj :
+            obj.estado=False
+            obj.save()
+            return response([], 200)
+        # end if
+        return response([], 404)
+    # end def
+# end class
 
 class ColegioType(supra.SupraListView):
     model = models.Colegio

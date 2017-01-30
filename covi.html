@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script type="text/JavaScript">
+    function cargado(){
+        var boton = document.getElementById("muestra");
+        var boton2 = document.getElementsByClassName("mostrar");
+        var boton3 = document.getElementsByName("mo");
+        console.log(document.getElementById("muestra"));
+        boton.addEventListener('click', function(){
+          console.log("El valor de texto es "+this.value);
+        });
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+         cargado();
+      });
+  </script>
+</head>
+<body>
+  <input type="text" id="valor">
+  <input type="button" name="mostrar" value="Mostrar" id="muestra" class="mostrar">
+</body>
+</html>
