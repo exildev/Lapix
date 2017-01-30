@@ -16,4 +16,13 @@ urlpatterns = [
 urlpatterns = [
     url(r'^add/sede/$',
         views.SedeFormView.as_view(), name="add_sede"),
+    url(r'^edit/sede/(?P<pk>\d+)/$',
+        views.SedeFormView.as_view(), name="edit_sede"),
+]
+
+
+# Acciones de Jornada
+urlpatterns = [
+    url(r'^list/jornada/$',
+        views.JornadaList.as_view(), name="list_jornada"),
 ]

@@ -79,6 +79,7 @@ EXILE_UI = {
                 ],
                 'models': {
                     'Sede': {'icon': 'home', 'group': 'Sede'},
+                    'Colegio': {'icon': 'home', 'group': 'Sede'},
                 }
             },
             'auth': {
@@ -112,7 +113,8 @@ MENU_ORDER = [
     {
         'name': 'configuracion',
         'models': [
-            'Sede'
+            'Sede',
+            'Colegio'
         ]
     }
 ]

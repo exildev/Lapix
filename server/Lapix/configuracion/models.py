@@ -31,7 +31,7 @@ class Colegio(models.Model):
 class Sede(models.Model):
     nombre = models.CharField(max_length=200, unique=True)
     registro = models.CharField(max_length=200, verbose_name="Registro Dane")
-    direccion = models.TextField(max_length=400, verbose_name="Dirección")
+    direccion = models.TextField(max_length=400, verbose_name="Dirección", blank=True, null=True)
     estado = models.BooleanField(default=True)
 
     def __unicode__(self):

@@ -43,3 +43,16 @@ class SedeFormView(supra.SupraFormView):
     template_name = 'configuracion/addSede.html'
     form_class = forms.SedeForm
 # end class
+
+
+class JornadaList(supra.SupraListView):
+    model = models.Configuracion
+    list_display = ['sede', 'jornada','horaIni','fin']
+    search_key = 'q'
+    search_fields = ['id']
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(JornadaList, self).dispatch(request, *args, **kwargs)
+    # end def
+# end class
