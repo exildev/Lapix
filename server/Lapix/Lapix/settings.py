@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hojadevida.apps.HojadevidaConfig',
     'supra',
-    'configuracion'
+    'configuracion',
+    'curriculo',
+    'horario',
     ]
 
 EXILE_UI = {
@@ -70,6 +72,16 @@ EXILE_UI = {
                     'Acudiente': {'icon': 'people', 'group': 'Usuarios'},
                     'AsignacionSede': {'icon': 'settings', 'group': 'Configuración'},
                     'GradoEntrante': {'icon': 'settings', 'group': 'Configuración'}
+                }
+            },
+            'curriculo': {
+                'icon': 'start_rate',
+                'groups': [
+                    'Curriculo'
+                ],
+                'models': {
+                    'Area': {'icon': 'public', 'group': 'Curriculo'},
+                    'Materia': {'icon': 'widgets', 'group': 'Curriculo'}
                 }
             },
             'configuracion': {
@@ -108,6 +120,13 @@ MENU_ORDER = [
             'Acudiente',
             'AsignacionSede',
             'GradoEntrante'
+        ]
+    },
+    {
+        'name': 'curriculo',
+        'models': [
+            'Area',
+            'Materia'
         ]
     },
     {
