@@ -29,4 +29,8 @@ urlpatterns += [
 urlpatterns += [
     url(r'^list/jornada/$',
         views.JornadaList.as_view(), name="list_jornada"),
+    url(r'^add/jornada/$',
+        views.JornadaFormView.as_view(), name="add_jornada"),
+    url(r'^edit/jornada/(?P<pk>\d+)/$',
+        views.JornadaFormView.as_view(), name="edit_jornada"),
 ]
