@@ -116,3 +116,10 @@ class JornadaList(supra.SupraListView):
         return super(JornadaList, self).dispatch(request, *args, **kwargs)
     # end def
 # end class
+
+
+class JornadaFormView(supra.SupraFormView):
+    model = models.Configuracion
+    template_name = 'configuracion/addJornada.html'
+    form_class = forms.JornadaForm
+# end class

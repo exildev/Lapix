@@ -11,6 +11,13 @@ class SedeForm(forms.ModelForm):
     # end class
 # end class
 
+class JornadaForm(forms.ModelForm):
+    class Meta:
+        model = models.Configuracion
+        fields = ['jornada', 'horaIni', 'miniIni', 'nothora', 'desIni', 'horaDia', 'cantidaHora', 'minutos_descanso', 'ano', 'hora_ini_sec_1', 'hora_fin_sec_1', 'hora_ini_sec_2', 'hora_fin_sec_2',]
+        exclude = ['estado',]
+    # end class
+# end class
 class ColegioForm(forms.ModelForm):
     class Meta:
         model = models.Colegio
