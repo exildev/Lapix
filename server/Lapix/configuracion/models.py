@@ -71,6 +71,7 @@ class Configuracion(models.Model):
     BOOL_CHOICES4 = ((0, 'am'), (1, 'pm'))
     sede = models.ForeignKey(Sede, verbose_name='*Sede')
     BOOL_CHOICES5 = ((1, 'Diurna'), (2, 'Tarde'), (3, 'Nocturna'))
+    sede = models.ForeignKey(Sede)
     jornada = models.IntegerField("*Jornada", choices=BOOL_CHOICES5, default=1)
     horaIni = models.IntegerField(
         "*Horas de inicio de clase", choices=BOOL_CHOICES1, default=7)
