@@ -89,6 +89,7 @@ class Configuracion(models.Model):
     hora_fin_sec_1 = models.CharField(max_length=200)
     hora_ini_sec_2 = models.CharField(max_length=200)
     hora_fin_sec_2 = models.CharField(max_length=200)
+    estado = models.BooleanField
 
     def __unicode__(self):
         return '%s' % convertirJornada(self.jornada)
