@@ -15,23 +15,19 @@
                 --lapix-header: #cfd8dd;
                 --lapix-text: black;
             }
-
             app-header {
                 background-color: var(--app-primary-color);
                 color: #fff;
             }
-
             paper-toolbar{
                 --paper-toolbar-background: #cfd8dd;
                 --paper-toolbar-color: #000;
             }
-
             app-drawer{
                 --app-drawer-content-container: {
                     background-color: #fef8e2;
                 }
             }
-
             app-drawer  paper-toolbar{
                 --paper-toolbar-background: #616161;
             }
@@ -39,37 +35,29 @@
             app-drawer .drawer-list paper-submenu paper-menu{
                 --paper-menu-background-color: #fef8e2;
             }
-
             app-drawer .drawer-list paper-submenu paper-menu paper-item {
                 --paper-item: {
                     padding-left: 90px;
                 };
             }
-
             #dr:not(.narrow) ::content [drawer-toggle] {
                 display: none;
             }
-
-            #logo{
-                cursor: pointer;
-            }
-
             .drawer-list {
                 margin: 0;
                 color: #616161;
                 --paper-menu-background-color: #fef8e2;
             }
-
             .drawer-list > paper-icon-item{
                 cursor: pointer;
                 --paper-item-selected: {
                     color: #edaa4f;
                 };
             }
-
             #logo{
                 cursor: pointer;
             }
+
         </style>
 
         <app-drawer-layout id="dr" fullbleed>
@@ -111,6 +99,7 @@
                     <lapix-registro-estudiantes  name="registro-estudiantes" bar="[[drawer]]"></lapix-registro-estudiantes>
                     <lapix-registro-acudientes name="registro-acudientes" bar="[[drawer]]"></lapix-registro-acudientes>
                 </iron-pages>
+                <paper-toast id="toast" text="normal" opened></paper-toast>
             </app-header-layout>
         </app-drawer-layout>
     </template>
@@ -139,6 +128,9 @@
             ready: function() {
                 window.lapix = window.lapix || {};
                 window.lapix.app = this;
+                window.lapix.toast = (m, d) => {
+                    this._openToast(m,d);
+                }
             },
 
             _pageChanged: function(page, oldPage) {
@@ -151,8 +143,14 @@
 
             _onGoToHome: function () {
                 this.page = 'home';
-            }
+            },
+            _openToast: function (m, d) {
+                this.$.toast.text = m || " ";
+                this.$.toast.duration = d || 3;
+                window.t = this.$.toast;
 
+                // this.$.toast.show();
+            }
         });
     </script>
 

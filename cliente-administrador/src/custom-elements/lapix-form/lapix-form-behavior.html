@@ -11,9 +11,13 @@
             },
             action: String,
         },
+        listeners: {
+            'iron-form-error': '_formError',
+            'iron-form-response': '_formResponse'
+        },
         _observerValues: function(params) {
             if(params){
-                for (var key in params) {
+                for (let key in params) {
                     if (params.hasOwnProperty(key)) {
                         let item = this.$.form.querySelector('[name="'+key+'"]');
                         if(item){
@@ -36,6 +40,30 @@
         },
         submit: function () {
             this.$.form.submit();
+        },
+        _formError: function (evn) {
+            console.log(evn.detail);
+            switch (evn.detail.request.status) {
+                case 400:
+                    let errorList = evn.detail.request.response;
+                    for (let key in errorList){
+                        if(errorList.hasOwnProperty(key)){
+                            let item = this.$.form.querySelector('[name="'+key+'"]');
+                            if(item){
+                                item.errorMessage = errorList[key][0];
+                                item.invalid = true;
+                            }
+                        }
+                    }
+                    break;
+                case 403:
+                    break;
+                default:
+                    break;
+            }
+        },
+        _formResponse: function(evn){
+            console.log('response', evn.detail.status);
         }
     }
 </script>

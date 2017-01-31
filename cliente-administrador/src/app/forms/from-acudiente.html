@@ -1,5 +1,5 @@
 <link rel="import" href="../../elements.html">
-<dom-module id="form-profesor">
+<dom-module id="form-acudiente">
     <style include="iron-flex"></style>
     <style>
         :host {
@@ -53,19 +53,18 @@
                 <div class="layout horizontal warp">
                      <paper-input class="flex" label="Imagen" name="imagen" type="file" ></paper-input>
                 </div>
-                <div class="layout horizontal warp">
-                     <paper-input class="flex" label="Hoja de Vida" name="hoja_vida" type="file" ></paper-input>
-                </div>
-                <input name="asignacionsede_set-TOTAL_FORMS"   type="hidden" value="1" />
-                <input name="asignacionsede_set-INITIAL_FORMS" type="hidden" value="0" />
-                <input name="asignacionsede_set-MAX_NUM_FORMS" type="hidden" value="1000" />
-                <input name="asignacionsede_set-MIN_NUM_FORMS" type="hidden" value="0" />
+                <p>
+                    <label for="id_estudiantes">Estudiantes:</label>
+                    <select multiple="multiple" id="id_estudiantes" name="estudiantes" required>
+                        <option value="16">Luis Carlos Gomez</option>
+                    </select>
+                </p>
             </div>
         </form>
     </template>
     <script>
         Polymer({
-            is: "form-profesor",
+            is: "form-acudiente",
             behaviors: [LapixFormBehavior]
         });
     </script>

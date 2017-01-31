@@ -11,13 +11,6 @@
         .horizontal{
             min-width: 300px;
         }
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            margin: 0;
-        }
     </style>
     <template>
         <iron-ajax id="ajaxGrado" handle-as="json" last-response="{{response}}"></iron-ajax>
@@ -44,7 +37,7 @@
                         auto-validate error-message="Este campo es requerido" label="Fecha de Nacimiento"></paper-input>
                 </div>
                 <div class="layout horizontal wrap">
-                    <paper-input maxlength="200" name="identificacion" type="number" pattern="\d*" required
+                    <paper-input maxlength="200" name="identificacion" type="number" required
                         auto-validate error-message="Este campo es requerido" label="Identificación"></paper-input>
                     <paper-input name="fecha" type="date" required
                         auto-validate error-message="Este campo es requerido" label="Fecha de Nacimiento"></paper-input>
@@ -74,6 +67,9 @@
                 <div class="layout horizontal wrap">
                     <paper-input class="flex" name="imagen" type="file" label="Imagen"></paper-input>
                 </div>
+                <!-- <div class="layout horizontal wrap">
+                    <lapix-input-image class="flex" name="imagen"></lapix-input-image>
+                </div> -->
             </div>
         </form>
     </template>

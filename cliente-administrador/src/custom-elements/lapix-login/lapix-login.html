@@ -10,26 +10,61 @@
                 height: 100vh;
             }
             :host .login{
-                background: #ccc;
-                width: 300px;
-                height: 300px;
-                padding: 16px;
+                width: 450px;
+                height: 350px;
             }
             :host > .full{
                 width: 100%;
                 height: 100%
             }
+            .logo{
+                width: 150px;
+                height: 150px;
+                margin: 0 auto;
+                margin-bottom: -30px;
+                background-image: url('../../../images/Icono lapix desktop vertical.svg');
+            }
+            paper-card{
+                width: 100%;
+                height: 100%;
+            }
+            paper-button{
+                background-color: #fea000;
+                color: white;
+            }
+
+            paper-button iron-icon{
+                margin: 0 8px;
+            }
+            .card-content, .card-actions{
+                padding: 16px;
+            }
+            paper-input {
+                --paper-input-container-focus-color: #fea000;
+                --paper-input-container-label-focus: #000;
+            }
+            .acctions{
+                padding: 8px 0;
+            }
         </style>
         <div class="full layout horizontal center-center">
             <div class="login">
-                <div id="error"></div>
                 <form id="loginform" is="iron-form" action$="[[action]]"  method$="[[method]]">
-                    <paper-input label="Usuario" value="{{user::input}}" name="username"></paper-input>
-                    <paper-input label="Contraseñsa" value="{{pass::input}}" name="password"></paper-input>
-                    <div class="layout horizontal-reverse">
-                        <paper-button id="btnlogin" raised >Login</paper-button>
-                        <paper-button id="btnforgot" raised >Olvide mi Contraseña</paper-button>
-                    </div>
+                    <paper-card>
+                        <div class="card-content">
+                            <div id="error"></div>
+                            <div class="logo"></div>
+                            <paper-input label="Usuario" value="{{user::input}}" name="username"></paper-input>
+                            <paper-input label="Contraseñsa" value="{{pass::input}}" name="password"></paper-input>
+
+                        </div>
+                        <div class="card-actions">
+                            <div class="layout horizontal center-justified acctions">
+                                <paper-button id="btnforgot" raised >Recuperar Contraseña<iron-icon icon="report"></iron-icon></paper-button>
+                                <paper-button id="btnlogin" raised >Acceder <iron-icon icon="send"></iron-icon></paper-button>
+                            </div>
+                        </div>
+                    </paper-card>
                 </form>
             </div>
         </div>

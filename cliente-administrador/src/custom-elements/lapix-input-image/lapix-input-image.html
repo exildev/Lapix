@@ -1,0 +1,100 @@
+<link rel="import" href="../../elements.html">
+<dom-module id="lapix-input-image">
+    <style>
+        :host {
+            display: block;
+        }
+        :host([hidden]) {
+            display: none !important;
+        }
+
+        label {
+            pointer-events: none;
+        }
+        #input{
+            visibility: hidden;
+        }
+        .user {
+            display: inline-block;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            border: 1px solid grey;
+        }
+        #container /deep/ .label-and-input-container{
+            display: none;
+        }
+    </style>
+    <template>
+        <paper-input-container id="container" always-float-label>
+            <label id="label">Imagen</label>
+            <div id="user "class="user" prefix style="background-image: url('[[value]]');"></div>
+            <input is="iron-input" id="input"
+                aria-labelledby$="[[_ariaLabelledBy]]"
+                aria-describedby$="[[_ariaDescribedBy]]"
+                disabled$="[[disabled]]"
+                title$="[[title]]"
+                bind-value="{{$.input.files[0].path}}"
+                invalid="{{invalid}}"
+                prevent-invalid-input="[[preventInvalidInput]]"
+                allowed-pattern="[[allowedPattern]]"
+                validator="[[validator]]"
+                type="file"
+                pattern$="[[pattern]]"
+                required$="[[required]]"
+                autocomplete$="[[autocomplete]]"
+                autofocus$="[[autofocus]]"
+                inputmode$="[[inputmode]]"
+                minlength$="[[minlength]]"
+                maxlength$="[[maxlength]]"
+                min$="[[min]]"
+                max$="[[max]]"
+                step$="[[step]]"
+                name$="[[name]]"
+                placeholder$="[[placeholder]]"
+                readonly$="[[readonly]]"
+                list$="[[list]]"
+                size$="[[size]]"
+                autocapitalize$="[[autocapitalize]]"
+                autocorrect$="[[autocorrect]]"
+                on-change="_onChange"
+                tabindex$="[[tabindex]]"
+                autosave$="[[autosave]]"
+                results$="[[results]]"
+                accept$="[[accept]]"
+                multiple$="[[multiple]]">
+
+            <paper-button on-tap="_onTapBtn" raised suffix>Seleccionar Archivo</paper-icon-button>
+
+            <template is="dom-if" if="[[errorMessage]]">
+                <paper-input-error aria-live="assertive">[[errorMessage]]</paper-input-error>
+            </template>
+        </paper-input-container>
+    </template>
+    <script>
+        Polymer({
+            is: "lapix-input-image",
+            properties: {
+                src: {
+                    type: String
+                }
+            },
+            behaviors: [
+                Polymer.IronFormElementBehavior,
+                Polymer.PaperInputBehavior
+            ],
+            listeners: {
+                'input.change': '_inputChange'
+            },
+            _onTapBtn: function (evn) {
+                this.$.input.click();
+            },
+            _inputChange: function (evn) {
+                this.value = this.$.input.files[0].name;
+            }
+        });
+    </script>
+</dom-module>

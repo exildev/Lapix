@@ -92,6 +92,13 @@
                 'del.error': '_onDelError',
             },
             ready: function() {
+                let form = this.querySelector('[form]');
+                if(form){
+                    form._formResponse = env => {
+                        this.$.dialog.close();
+                        this.retrieveResults();
+                    }
+                }
                 this._dataSource = {
                     get: (sort, page, pageSize) => {
                         this.$.get.params = { page: page, num_page: pageSize, sort_property: sort.property, sort_direction: sort.direction };
@@ -127,6 +134,7 @@
                     },
                     length: 0
                 };
+
             },
             cleanParameter: function(item){
                 console.warn('Sobrescribe esta funcion en tu implementacion de lapix-table');
@@ -168,6 +176,7 @@
                 if(form){
                     form.add = true;
                     form.action = lapix.conf.get('host') + this.addUrl;
+                    console.log(form.action);
                     form.values = null;
                     form.reset();
                     this.$.dialog.open();

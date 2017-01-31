@@ -1,5 +1,5 @@
 <link rel="import" href="../../elements.html">
-<link rel="import" href="../forms/form-acudiente.html">
+<link rel="import" href="../forms/from-acudiente.html">
 <dom-module id="lapix-registro-acudientes">
 
     <template>
@@ -22,7 +22,7 @@
                 <paper-icon-button icon="bug-report" on-tap="_openDevTools"></paper-icon-button>
             </paper-toolbar>
         </app-header>
-        <lapix-table id="dt" site="/usuarios/list/acudiente/" label="Profesores" property="identificacion">
+        <lapix-table id="dt" site="/usuarios/list/acudiente/" label="Acudientes" property="identificacion">
             <paper-datatable-column header="Identificación" type="String" property="identificacion" sortable></paper-datatable-column>
             <paper-datatable-column header="Profesor" property="nombre">
                 <template>
