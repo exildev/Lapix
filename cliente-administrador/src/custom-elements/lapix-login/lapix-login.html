@@ -36,7 +36,7 @@
             paper-button iron-icon{
                 margin: 0 8px;
             }
-            .card-content, .card-actions{
+            .margen{
                 padding: 16px;
             }
             paper-input {
@@ -54,12 +54,13 @@
                         <div class="card-content">
                             <div id="error"></div>
                             <div class="logo"></div>
-                            <paper-input label="Usuario" value="{{user::input}}" name="username"></paper-input>
-                            <paper-input label="Contraseñsa" value="{{pass::input}}" name="password"></paper-input>
-
+                            <div id="inputs" class="margen">
+                                <paper-input label="Usuario" value="{{user::input}}" name="username"></paper-input>
+                                <paper-input label="Contraseñsa" value="{{pass::input}}" name="password" type="password"></paper-input>
+                            </div>
                         </div>
                         <div class="card-actions">
-                            <div class="layout horizontal center-justified acctions">
+                            <div class="layout horizontal center-justified acctions margen">
                                 <paper-button id="btnforgot" raised >Recuperar Contraseña<iron-icon icon="report"></iron-icon></paper-button>
                                 <paper-button id="btnlogin" raised >Acceder <iron-icon icon="send"></iron-icon></paper-button>
                             </div>
@@ -100,16 +101,33 @@
                 console.log('forgot');
             },
             _onResponse: function (data) {
-                console.log(data.detail.response);
-                // if(window.ipc && this.newUrl){
+                if(window.ipc && this.newUrl){
                     window.ipc.send('go-to', { file: this.newUrl});
-                // }else{
-                //     console.log('ipc o newUrl indefinido');
-                // }
+                }else{
+                    console.log('ipc o newUrl indefinido');
+                }
             },
             _onError: function (e) {
-                window.ipc.send('go-to', { file: this.newUrl});
-                this.$.error.textContent = "Usuario o contraseña invalidos"
+                console.log(e.detail);
+                switch (e.detail.request.status) {
+                    case 400:
+                        let errorList = e.detail.request.response;
+                        for (let key in errorList){
+                            if(errorList.hasOwnProperty(key)){
+                                let item = this.$.inputs.querySelector('[name="'+key+'"]');
+                                console.log(key, item);
+                                if(item){
+                                    item.errorMessage = errorList[key][0];
+                                    item.invalid = true;
+                                }else if(key === "error"){
+                                    this.$.error.textContent = errorList[key][0]
+                                }
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
             },
             _preSend: function () {
                 this.$.error.textContent = ""
