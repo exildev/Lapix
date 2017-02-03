@@ -9,11 +9,7 @@
             :host {
                 display: block;
                 --app-primary-color: #4285f4;
-                --app-secondary-color: black;
-                --lapix-accent: #febe04;
-                --lapix-accent-dark: #f67c01;
-                --lapix-header: #cfd8dd;
-                --lapix-text: black;
+                --app-secondary-color: #000;
             }
             app-header {
                 background-color: var(--app-primary-color);
@@ -48,10 +44,10 @@
                 color: #616161;
                 --paper-menu-background-color: #fef8e2;
             }
-            .drawer-list > paper-icon-item{
+            .drawer-list  paper-icon-item{
                 cursor: pointer;
                 --paper-item-selected: {
-                    color: #edaa4f;
+                    color: var(--lapix-accent-light);
                 };
             }
             #logo{
@@ -63,8 +59,8 @@
         <app-drawer-layout id="dr" fullbleed>
             <!-- Drawer content -->
             <app-drawer >
-                <paper-toolbar class="tall">
-                    <img id="logo" class="middle" src="../../../images/logo_lapix_desktop_horizontal.svg" alt="Logo">
+                <paper-toolbar class="medium-tall">
+                    <img id="logo" src="../../../images/logo_lapix_desktop_horizontal.svg" alt="Logo">
                     <div class="bottom title">Menu</div>
                 </paper-toolbar>
                 <paper-menu id="menu" selected="{{page}}" attr-for-selected="name" class="drawer-list" role="navigation">
@@ -91,6 +87,12 @@
             </app-drawer>
             <!-- Main content -->
             <app-header-layout has-scrolling-region>
+                <paper-toolbar>
+                    <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+                    <div class="title">Lapix</div>
+                    <paper-icon-button icon="cached" on-tap="_winReload"></paper-icon-button>
+                    <paper-icon-button icon="bug-report" on-tap="_openDevTools"></paper-icon-button>
+                </paper-toolbar>
                 <iron-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name">
                     <lapix-home   name="home" bar="[[drawer]]"></lapix-home>
                     <lapix-view1  name="view1" bar="[[drawer]]"></lapix-view1>
