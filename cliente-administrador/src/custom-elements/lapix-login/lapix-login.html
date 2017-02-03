@@ -73,6 +73,9 @@
     <script>
         Polymer({
             is: "lapix-login",
+            behaviors: [
+              Polymer.IronA11yKeysBehavior
+            ],
             properties: {
                 action: {
                     type: String,
@@ -85,6 +88,12 @@
                 newUrl: {
                     type: String,
                     notify: true
+                },
+                keyEventTarget: {
+                    type: Object,
+                    value: function() {
+                      return document.body;
+                    }
                 }
             },
             listeners: {
@@ -93,6 +102,9 @@
                 'loginform.iron-form-response': '_onResponse',
                 'loginform.iron-form-error': '_onError',
                 'loginform.iron-form-presubmit': '_preSend'
+            },
+            keyBindings: {
+                'enter:keypress': '_loginSubmit'
             },
             _loginSubmit: function(){
                 this.$.loginform.submit();
@@ -108,19 +120,18 @@
                 }
             },
             _onError: function (e) {
-                console.log(e.detail);
                 switch (e.detail.request.status) {
                     case 400:
                         let errorList = e.detail.request.response;
                         for (let key in errorList){
                             if(errorList.hasOwnProperty(key)){
                                 let item = this.$.inputs.querySelector('[name="'+key+'"]');
-                                console.log(key, item);
                                 if(item){
                                     item.errorMessage = errorList[key][0];
                                     item.invalid = true;
                                 }else if(key === "error"){
-                                    this.$.error.textContent = errorList[key][0]
+                                    this.$.error.textContent = errorList[key][0];
+                                    break;
                                 }
                             }
                         }
@@ -130,7 +141,7 @@
                 }
             },
             _preSend: function () {
-                this.$.error.textContent = ""
+                this.$.error.textContent = "";
             }
         });
     </script>
