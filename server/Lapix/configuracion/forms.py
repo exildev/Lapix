@@ -165,3 +165,33 @@ class ColegioFormEdit(forms.ModelForm):
         fields = ['nit', 'registro', 'nombre', 'tipo', 'jornada', 'year']
     # end class
 # end class
+
+
+class ConfiguracionPeriodoForm(forms.ModelForm):
+    class Meta:
+        model = models.ConfiguracionPeriodo
+        fields = ['cantidad', 'inicio', 'fin']
+        exclude = ['estado']
+    # end class
+
+    def clean(self):
+        configuracion = models.ConfiguracionPeriodo.objects.filter(inicio__year=datetime.datetime.now().year)
+        if configuracion:
+            self.add_error('inicio', 'Existe configuración para este año.')
+        # end class
+        data = super(ConfiguracionPeriodoForm, self).clean()
+        if data.get('cantidad'):
+            if data.get('cantidad') < 0 :
+                self.add_error('cantidad', 'Debe por lo menos existir un periodo.')
+            # end def
+        # end def
+        print data.get('inicio'), data.get('fin')
+        inicio = data.get('inicio')
+        fin = data.get('fin')
+        if inicio and fin:
+            if inicio > fin:
+                self.add_error('fin', 'La fecha de fin debe ser mayor a la de inicio.')
+            # end def
+        # end if
+    # end def
+# end class
