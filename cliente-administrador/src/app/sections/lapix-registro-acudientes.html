@@ -66,6 +66,8 @@
                     delete item.servicios;
                     item.first_name = item.nombre.first_name;
                     item.last_name = item.nombre.last_name;
+                    item.fecha = item.date;
+                    delete item.date;
                     delete item.nombre;
                     return item;
                 };
