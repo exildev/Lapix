@@ -126,7 +126,7 @@ class EstudianteForm(UserCreationForm):
     def clean_imagen(self):
         imagen = self.cleaned_data.get('imagen', False)
         if imagen:
-            if hasattr(imagen, '_size') and imagen._size > 1 * 1024 * 1024:
+            if hasattr(imagen, '_size') and imagen._size > 1 * 10 * 10:
                 raise forms.ValidationError(
                     "El tamaño de la imagen no puede ser superior a 1 mega")
             # end if
@@ -318,10 +318,4 @@ class AsignacionSedeForm(forms.ModelForm):
         model = models.AsignacionSede
         exclude = ()
     # end class
-# end class
-
-
-class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput())
-    password = forms.CharField(widget=forms.PasswordInput(render_value=False))
 # end class

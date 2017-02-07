@@ -84,12 +84,12 @@ class Configuracion(models.Model):
     horaDia = models.IntegerField("*Valor hora academica en minutos")
     cantidaHora = models.IntegerField("*Cantidad de Horas al día")
     minutos_descanso = models.IntegerField("*Cantidad minutos descanso")
-    ano = models.IntegerField(choices=BOOL_CHOICES7)
+    ano = models.IntegerField(choices=BOOL_CHOICES7, default=datetime.datetime.now().year)
     hora_ini_sec_1 = models.CharField(max_length=200)
     hora_fin_sec_1 = models.CharField(max_length=200)
     hora_ini_sec_2 = models.CharField(max_length=200)
     hora_fin_sec_2 = models.CharField(max_length=200)
-    estado = models.BooleanField
+    estado = models.BooleanField(default=True)
 
     def __unicode__(self):
         return '%s' % convertirJornada(self.jornada)
