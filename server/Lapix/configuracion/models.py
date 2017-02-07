@@ -112,6 +112,7 @@ class ConfiguracionPeriodo(models.Model):
     cantidad = models.IntegerField("Cantidad de Periodos Academicos")
     inicio = models.DateField("Inicio del Periodo Academico")
     fin = models.DateField("Fin del Periodo Academico")
+    estado = models.BooleanField(default=True)
 
     def __unicode__(self):
         return "Configuracion Periodo Academico"
