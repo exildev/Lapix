@@ -3,7 +3,7 @@ const Config = require('electron-config');
 const utils = require('./src/desktop/main-utils.js');
 const path = require('path');
 
- const config = new Config();
+const config = new Config();
 let win;
 let dt;
 
@@ -18,7 +18,6 @@ function init() {
         height: height,
         show: false
     });
-    win.webContents.openDevTools();
     utils.loadFile(win, '../../login.html');
     win.once('ready-to-show', () => {
         win.show();
