@@ -38,3 +38,10 @@ urlpatterns += [
     url(r'^delete/jornada/(?P<pk>\d+)/$',
         views.DeleteJornada.as_view(), name="delate_jornada"),
 ]
+
+
+# Gonfiguraciones generales
+urlpatterns += [
+    url(r'^add/general/periodo/$',
+        views.ConfiguracionPeriodoView.as_view(), name='add_gerenal_periodo')
+]
