@@ -1,18 +1,24 @@
 {
-  "name": "lapix-escritorio",
+  "name": "Lapix",
   "version": "0.0.1",
   "description": "Edication Plataform",
   "main": "./main.js",
   "dependencies": {
-    "electron-config": "^0.2.1"
+    "electron-config": "^0.2.1",
+    "electron-window-state": "^4.0.2"
   },
   "devDependencies": {
+    "asar": "^0.13.0",
     "devtron": "^1.4.0",
-    "electron": "^1.4.7"
+    "electron-installer-debian": "^0.4.0",
+    "electron-installer-windows": "^0.2.0",
+    "electron-packager": "^8.5.1",
+    "electron-prebuilt": "^1.4.13"
   },
   "scripts": {
     "start": "electron .",
-    "test": "polymer test"
+    "build": "electron-packager . Lapix --platform win32 --arch x64 --out dist/ --overwrite && electron-packager . Lapix --platform linux --arch x64 --out dist/ --overwrite",
+    "setup": "electron-installer-windows --src dist/Lapix-win32-x64/ --dest dist/installers/ && electron-installer-debian --src dist/Lapix-linux-x64/ --dest dist/installers/ --arch amd64"
   },
   "repository": {
     "type": "git",

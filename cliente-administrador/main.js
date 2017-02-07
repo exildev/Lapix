@@ -1,21 +1,27 @@
 const {app, BrowserWindow, ipcMain, dialog} = require('electron');
 const Config = require('electron-config');
+const windowStateKeeper = require('electron-window-state');
 const utils = require('./src/desktop/main-utils.js');
 const path = require('path');
 
 const config = new Config();
+if(!config.has('host')){
+    config.set('host', 'http://104.236.33.228:8070/');
+}
 let win;
 let dt;
 
 function init() {
-    const {width, height} = require('electron').screen.getPrimaryDisplay().workAreaSize;
-    if(!config.has('host')){
-        config.set('host', 'http://104.236.33.228:8070/');
-    }
+    let mainWindowState = windowStateKeeper({
+        defaultWidth: 1200,
+        defaultHeight: 700
+    });
     win = new BrowserWindow({
         icon: path.join(__dirname, './src/images/test tube.png'),
-        width: width,
-        height: height,
+        x: mainWindowState.x,
+        y: mainWindowState.y,
+        width: mainWindowState.width,
+        height: mainWindowState.height,
         show: false
     });
     utils.loadFile(win, '../../login.html');
@@ -25,6 +31,7 @@ function init() {
     win.on('closed', () => {
         win = null;
     });
+    mainWindowState.manage(win);
     dt = new BrowserWindow({
         parent: win,
         modal: true,
