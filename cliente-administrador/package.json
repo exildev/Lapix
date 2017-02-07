@@ -20,6 +20,7 @@
     "build": "electron-packager . Lapix --platform win32 --arch x64 --out dist/ --overwrite && electron-packager . Lapix --platform linux --arch x64 --out dist/ --overwrite",
     "setup": "electron-installer-windows --src dist/Lapix-win32-x64/ --dest dist/installers/ && electron-installer-debian --src dist/Lapix-linux-x64/ --dest dist/installers/ --arch amd64"
   },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/exildev/Lapix.git"
