@@ -174,3 +174,10 @@ class DeleteJornada(View):
         return HttpResponse(respuesta, content_type="application/json", status=status)
     # end def
 # end def
+
+
+class ConfiguracionPeriodoView(supra.SupraFormView):
+    model = models.ConfiguracionPeriodo
+    template_name = 'configuracion/addConfiguracionPeriodo.html'
+    form_class = forms.ConfiguracionPeriodoForm
+# end class
