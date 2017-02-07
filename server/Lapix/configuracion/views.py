@@ -29,6 +29,7 @@ class SedesList(supra.SupraListView):
     search_key = 'q'
     list_display = ['nombre', 'registro', 'direccion', 'estado', 'servicios']
     search_fields = ['nombre', 'direccion', 'registro']
+    paginate_by = 10
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -63,6 +64,8 @@ class BuilderDelete():
     def eraseObjeto(pk, op):
         if op == 1:
             obj = models.Sede.objects.filter(id=pk, estado=True).first()
+        elif op == 2:
+            obj = models.Configuracion.objects.filter(id=pk, estado=True).first()
         #end if
         if obj :
             obj.estado=False
@@ -99,7 +102,6 @@ class SedeFormView(supra.SupraFormView):
 class DeleteSede(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        print args,kwargs
         respuesta, status= BuilderDelete.eraseObjeto(kwargs['pk'], 1)
         return HttpResponse(respuesta, content_type="application/json", status=status)
     # end def
@@ -107,13 +109,34 @@ class DeleteSede(View):
 
 class JornadaList(supra.SupraListView):
     model = models.Configuracion
-    list_display = ['sede', 'jornada','horaIni','fin']
+    list_display = ['nombre', 'jornada','hora_ini_sec_1','hora_fin_sec_2']
     search_key = 'q'
-    search_fields = ['id']
+    search_fields = ['id','sede__nombre','hora_ini_sec_1','hora_fin_sec_2']
+    paginate_by = 10
+
+    class Renderer:
+        nombre = 'sede__nombre'
+    # end class
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(JornadaList, self).dispatch(request, *args, **kwargs)
+    # end def
+
+    def get_queryset(self):
+        queryset = super(JornadaList, self).get_queryset()
+        self.paginate_by = self.request.GET.get('num_page', False)
+        propiedad = self.request.GET.get('sort_property', False)
+        orden = self.request.GET.get('sort_direction', False)
+        queryset2 = queryset.filter(estado=True)
+        if propiedad and orden:
+            if orden == "asc":
+                queryset2 = queryset2.order_by(propiedad)
+            elif orden == "desc":
+                propiedad = "-"+propiedad
+                queryset2 = queryset2.order_by(propiedad)
+        # end if
+        return queryset2
     # end def
 # end class
 
@@ -123,3 +146,31 @@ class JornadaFormView(supra.SupraFormView):
     template_name = 'configuracion/addJornada.html'
     form_class = forms.JornadaForm
 # end class
+
+class InfoJornada(supra.SupraListView):
+    model = models.Configuracion
+    search_key = 'q'
+    list_display = ['nombre', 'horaDia', 'jornada', 'cantidaHora', 'inicio_clase', 'hora_descanso', 'minutos_descanso']
+    search_fields = ['id']
+    paginate_by = 1
+
+    class Renderer:
+        nombre = 'sede__nombre'
+        inicio_clase = 'hora_ini_sec_1'
+        hora_descanso = 'desIni'
+    # end class
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(InfoSede, self).dispatch(request, *args, **kwargs)
+    # end def
+# end class
+
+
+class DeleteJornada(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        respuesta, status= BuilderDelete.eraseObjeto(kwargs['pk'], 2)
+        return HttpResponse(respuesta, content_type="application/json", status=status)
+    # end def
+# end def

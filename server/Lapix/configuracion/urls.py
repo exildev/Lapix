@@ -33,4 +33,8 @@ urlpatterns += [
         views.JornadaFormView.as_view(), name="add_jornada"),
     url(r'^edit/jornada/(?P<pk>\d+)/$',
         views.JornadaFormView.as_view(), name="edit_jornada"),
+    url(r'^info/jornada/$',
+        views.InfoSede.as_view(), name="info_jornada"),
+    url(r'^delete/jornada/(?P<pk>\d+)/$',
+        views.DeleteJornada.as_view(), name="delate_jornada"),
 ]
