@@ -57,6 +57,7 @@
                     }
                     break;
                 case 403:
+                    lapix.app.logout();
                     break;
                 default:
                     break;
@@ -65,5 +66,5 @@
         _formResponse: function(evn){
             console.log('response', evn.detail.status);
         }
-    }
+    };
 </script>

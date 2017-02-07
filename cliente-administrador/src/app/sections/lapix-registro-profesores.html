@@ -1,4 +1,5 @@
 <link rel="import" href="../../elements.html">
+<link rel="import" href="../../custom-elements/lapix-table/lapix-table.html">
 <link rel="import" href="../forms/form-profesor.html">
 <dom-module id="lapix-registro-profesores">
 
@@ -36,7 +37,7 @@
             <div class="bottom flex"></div>
             <paper-material id="search" elevation="1" class="bottom">
                 <iron-icon icon="search"></iron-icon>
-                <input id="searchInput" is="iron-input" type="search" >
+                <input id="searchInput" is="iron-input" type="search" on-input="_search" >
             </paper-material>
         </paper-toolbar>
         <lapix-table id="dt" site="/usuarios/list/profesores/" label="Profesores" property="identificacion">
@@ -73,8 +74,8 @@
             ready: function() {
                 this.$.dt.cleanParameter = (item) => {
                     delete item.servicios;
-                    item['first_name'] = item.nombre.first_name;
-                    item['last_name'] = item.nombre.last_name;
+                    item.first_name = item.nombre.first_name;
+                    item.last_name = item.nombre.last_name;
                     delete item.nombre;
                     delete item.actividades;
                     delete item.horario;

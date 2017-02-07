@@ -2,7 +2,7 @@
   "name": "lapix-escritorio",
   "version": "0.0.1",
   "description": "Edication Plataform",
-  "main": "./desktop/main.js",
+  "main": "./main.js",
   "dependencies": {
     "electron-config": "^0.2.1"
   },

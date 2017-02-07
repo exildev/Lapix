@@ -1,4 +1,5 @@
 <link rel="import" href="../../elements.html">
+<link rel="import" href="../../custom-elements/lapix-table/lapix-table.html">
 <link rel="import" href="../forms/from-acudiente.html">
 <dom-module id="lapix-registro-acudientes">
     <template>
@@ -6,14 +7,38 @@
             :host {
                 display: block;
             }
-
             paper-toolbar{
                 --paper-toolbar-background: #cfd8dd;
                 --paper-toolbar-color: #000;
             }
+            #search{
+                background: white;
+                border-radius: 3px;
+                padding: 0 16px;
+                color: #767676;
+            }
+            #searchInput{
+                min-width: 200px;
+                padding: 8px 0;
+                margin-left: 16px;
+                border: none;
+                font-family: 'Roboto', 'Noto', sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 24px;
+            }
+            #searchInput:focus{
+                outline: none;
+            }
         </style>
         <iron-ajax id="set" handle-as="json" content-type="application/x-www-form-urlencoded" method="post"></iron-ajax>
-        <paper-toolbar class="medium-tall"></paper-toolbar>
+        <paper-toolbar>
+            <div class="bottom flex"></div>
+            <paper-material id="search" elevation="1" class="bottom">
+                <iron-icon icon="search"></iron-icon>
+                <input id="searchInput" is="iron-input" type="search" on-input="_search" >
+            </paper-material>
+        </paper-toolbar>
         <lapix-table id="dt" site="/usuarios/list/acudiente/" label="Acudientes" property="identificacion">
             <paper-datatable-column header="Identificación" type="String" property="identificacion" sortable></paper-datatable-column>
             <paper-datatable-column header="Profesor" property="nombre">
@@ -39,8 +64,8 @@
             ready: function() {
                 this.$.dt.cleanParameter = (item) => {
                     delete item.servicios;
-                    item['first_name'] = item.nombre.first_name;
-                    item['last_name'] = item.nombre.last_name;
+                    item.first_name = item.nombre.first_name;
+                    item.last_name = item.nombre.last_name;
                     delete item.nombre;
                     return item;
                 };

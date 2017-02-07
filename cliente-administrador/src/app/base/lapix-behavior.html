@@ -8,6 +8,9 @@
                 type: Object
             }
         },
+        _search: function() {
+            this.$.dt.search = this.$.searchInput.value;
+        },
         _openDevTools: () => ipc.send('devtools'),
         _winReload: () => ipc.send('win-reload'),
         _dtLoad: f => ipc.send('dt-load', {

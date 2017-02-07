@@ -11,21 +11,5 @@
     <template>
         <paper-input id="ihost" label="Host" value={{host}} on-change="setHost"></paper-input>
     </template>
-    <script>
-        Polymer({
-            is: 'lapix-conf',
-            properties: {
-                host: {
-                    type: String,
-                    notify: true,
-                    value: function() {
-                        return lapix.conf.get('host');
-                    }
-                }
-            },
-            setHost: function (e) {
-                lapix.conf.set('host', this.$.ihost.value);
-            }
-        });
-    </script>
+    <script src="./lapix-conf.js"></script>
 </dom-module>

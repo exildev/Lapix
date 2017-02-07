@@ -8,15 +8,14 @@
 
             :host {
                 display: block;
-                --app-primary-color: #4285f4;
-                --app-secondary-color: #000;
+                --accent-color: var(--lapix-accent, --accent-color);
             }
             app-header {
                 background-color: var(--app-primary-color);
                 color: #fff;
             }
             paper-toolbar{
-                --paper-toolbar-background: #cfd8dd;
+                --paper-toolbar-background: var(--lapix-header);
                 --paper-toolbar-color: #000;
             }
             app-drawer{
@@ -36,9 +35,7 @@
                     padding-left: 90px;
                 };
             }
-            #dr:not(.narrow) ::content [drawer-toggle] {
-                display: none;
-            }
+
             .drawer-list {
                 margin: 0;
                 color: #616161;
@@ -52,6 +49,8 @@
             }
             #logo{
                 cursor: pointer;
+                margin-top: 62px;
+                width: 200px;
             }
 
         </style>
@@ -60,8 +59,7 @@
             <!-- Drawer content -->
             <app-drawer >
                 <paper-toolbar class="medium-tall">
-                    <img id="logo" src="../../../images/logo_lapix_desktop_horizontal.svg" alt="Logo">
-                    <div class="bottom title">Menu</div>
+                    <img id="logo" src="../../images/logo_lapix_desktop_horizontal.svg" alt="Logo">
                 </paper-toolbar>
                 <paper-menu id="menu" selected="{{page}}" attr-for-selected="name" class="drawer-list" role="navigation">
                     <paper-icon-item name="home">
@@ -91,7 +89,13 @@
                     <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
                     <div class="title">Lapix</div>
                     <paper-icon-button icon="cached" on-tap="_winReload"></paper-icon-button>
-                    <paper-icon-button icon="bug-report" on-tap="_openDevTools"></paper-icon-button>
+                    <paper-menu-button horizontal-align="right">
+                        <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
+                        <paper-menu class="dropdown-content">
+                            <paper-icon-item on-tap="_openDevTools"><iron-icon icon="bug-report" item-icon></iron-icon>DevTools</paper-icon-item>
+                            <paper-icon-item on-tap="_logout"><iron-icon icon="power-settings-new" item-icon></iron-icon>Logout</paper-icon-item>
+                        </paper-menu>
+                    </paper-menu-button>
                 </paper-toolbar>
                 <iron-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name">
                     <lapix-home   name="home" bar="[[drawer]]"></lapix-home>
@@ -101,9 +105,17 @@
                     <lapix-registro-estudiantes  name="registro-estudiantes" bar="[[drawer]]"></lapix-registro-estudiantes>
                     <lapix-registro-acudientes name="registro-acudientes" bar="[[drawer]]"></lapix-registro-acudientes>
                 </iron-pages>
-                <paper-toast id="toast" text="normal" opened></paper-toast>
+                <div id="toast_container">
+                    <paper-toast id="toast"></paper-toast>
+                </div>
             </app-header-layout>
         </app-drawer-layout>
+        <iron-ajax id="logout" handle-as="json" on-response="_logoutResponse"></iron-ajax>
+        <iron-ajax id=""
+          auto
+          url=""
+          handle-as="json"
+          on-response="handleResponse"></iron-ajax>
     </template>
 
     <script>
@@ -130,9 +142,8 @@
             ready: function() {
                 window.lapix = window.lapix || {};
                 window.lapix.app = this;
-                window.lapix.toast = (m, d) => {
-                    this._openToast(m,d);
-                }
+                this.$.logout.url = lapix.conf.get('host') + 'usuarios/logout/';
+                this.$.toast.fitInto = this.$.toast_container;
             },
 
             _pageChanged: function(page, oldPage) {
@@ -147,11 +158,19 @@
                 this.page = 'home';
             },
             _openToast: function (m, d) {
+                window.t = this.$.toast;
                 this.$.toast.text = m || " ";
                 this.$.toast.duration = d || 3;
-                window.t = this.$.toast;
-
-                // this.$.toast.show();
+                console.log('toast', this.$.toast.text, this.$.toast.duration);
+                this.$.toast.opened = true;
+            },
+            logout: function(){
+                this.$.logout.generateRequest();
+            },
+            _logoutResponse: function(evn){
+                ipc.send('go-to', {
+                    file: 'login.html'
+                });
             }
         });
     </script>
