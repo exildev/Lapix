@@ -3,7 +3,7 @@
 <dom-module id="lapix-app">
 
     <template>
-
+        <style include="lapix-style"></style>
         <style>
 
             :host {
@@ -16,30 +16,29 @@
             }
             paper-toolbar{
                 --paper-toolbar-background: var(--lapix-header);
-                --paper-toolbar-color: #000;
+                --paper-toolbar-color: var(--lapix-text);
             }
             app-drawer{
                 --app-drawer-content-container: {
-                    background-color: #fef8e2;
+                    background-color: var(--lapix-accent-back);
                 }
             }
-            app-drawer  paper-toolbar{
-                --paper-toolbar-background: #616161;
+            app-drawer paper-toolbar{
+                --paper-toolbar-background: var(--lapix-text);
             }
 
             app-drawer .drawer-list paper-submenu paper-menu{
-                --paper-menu-background-color: #fef8e2;
+                --paper-menu-background-color: var(--lapix-accent-back);
             }
             app-drawer .drawer-list paper-submenu paper-menu paper-item {
                 --paper-item: {
                     padding-left: 90px;
                 };
             }
-
             .drawer-list {
                 margin: 0;
-                color: #616161;
-                --paper-menu-background-color: #fef8e2;
+                color: var(--lapix-text);
+                --paper-menu-background-color: var(--lapix-accent-back);
             }
             .drawer-list  paper-icon-item{
                 cursor: pointer;

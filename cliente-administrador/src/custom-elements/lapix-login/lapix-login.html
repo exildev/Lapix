@@ -1,6 +1,7 @@
 <link rel="import" href="../../elements.html">
 
 <dom-module id="lapix-login">
+    <style include="lapix-style"></style>
     <style include="iron-flex"></style>
     <template>
         <style>
@@ -8,6 +9,7 @@
                 display: block;
                 width: 100%;
                 height: 100vh;
+                background: var(--lapix-accent-back)
             }
             :host .login{
                 width: 450px;
@@ -30,7 +32,7 @@
                 height: 100%;
             }
             paper-button{
-                background-color: #fea000;
+                background-color: var(--lapix-accent);
                 color: white;
             }
 
@@ -41,14 +43,14 @@
                 padding: 16px;
             }
             paper-input {
-                --paper-input-container-focus-color: #fea000;
-                --paper-input-container-label-focus: #000;
+                --paper-input-container-focus-color: var(--lapix-accent);
+                --paper-input-container-label-focus: var(--lapix-text);
             }
             .acctions{
                 padding: 8px 0;
             }
             #error{
-                padding: 0 16px; 
+                padding: 0 16px;
                 font-size: 16px;
                 color: red;
                 height: 24px;

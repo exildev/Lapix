@@ -4,11 +4,6 @@
         :host {
             display: block;
             padding: 8px;
-            --paper-datatable-selection-toolbar-text-color: var(--lapix-text, --primary-text-color);
-            --paper-datatable-selection-toolbar-color: var(--lapix-header, --primary-color);
-            --paper-datatable-checkbox-border-color: var(--lapix-accent, --accent-color);
-            --paper-datatable-header-checkbox-border-color: var(--lapix-accent, --accent-color);
-            --paper-datatable-checkbox-color:  var(--lapix-accent, --accent-color);
             --paper-toggle-button-checked-bar-color: var(--lapix-accent, --accent-color);
             --paper-toggle-button-checked-button-color:	var(--lapix-accent, --accent-color);
             --paper-toggle-button-checked-ink-color: var(--lapix-accent, --accent-color);
@@ -18,6 +13,29 @@
             bottom: 60px;
             right: 60px;
             --paper-fab-background: var(--lapix-accent-dark, --accent-color);
+        }
+
+        paper-toggle-button{
+
+        }
+
+        paper-datatable{
+            --paper-datatable-divider-color: var(--divider-color);
+            --paper-datatable-row-selection-color: var(---lapix-accent-back);
+            --paper-datatable-row-hover-color: var(--lapix-accent-back);
+            --paper-datatable-checkbox-border-color:var(--lapix-accent, --accent-color);
+            --paper-datatable-header-checkbox-border-color:	var(--lapix-accent, --accent-color);
+            --paper-datatable-icon-color: var(--lapix-text, --primary-text-color);
+        }
+
+        paper-datatable-card{
+            --paper-datatable-divider-color: var(--divider-color);
+            --paper-datatable-selection-toolbar-color: var(--lapix-header, --primary-color);
+            --paper-datatable-selection-toolbar-text-color:  var(--lapix-text, --primary-text-color);
+            --paper-datatable-navigation-bar-text-color: var(--lapix-text);
+            --paper-datatable-top-toolbar-text-color: var(--lapix-text, --primary-text-color);
+            --paper-datatable-top-toolbar-icon-color: var(--lapix-text, --primary-text-color);
+            --paper-datatable-selection-toolbar-icon-color: var(--lapix-text, --primary-text-color);
         }
     </style>
     <template>
