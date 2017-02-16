@@ -13,14 +13,17 @@
     "electron-installer-debian": "^0.4.0",
     "electron-installer-windows": "^0.2.0",
     "electron-packager": "^8.5.1",
-    "electron-prebuilt": "^1.4.13"
+    "electron-prebuilt": "^1.4.13",
+    "gulp": "^3.9.1",
+    "gulp-crisper": "^1.1.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-vulcanize": "^6.1.0"
   },
   "scripts": {
     "start": "electron .",
     "build": "electron-packager . Lapix --platform win32 --arch x64 --out dist/ --overwrite && electron-packager . Lapix --platform linux --arch x64 --out dist/ --overwrite",
     "setup": "electron-installer-windows --src dist/Lapix-win32-x64/ --dest dist/installers/ && electron-installer-debian --src dist/Lapix-linux-x64/ --dest dist/installers/ --arch amd64"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/exildev/Lapix.git"

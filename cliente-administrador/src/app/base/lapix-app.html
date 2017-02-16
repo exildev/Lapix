@@ -1,4 +1,8 @@
 <link rel="import" href="../../elements.html">
+<link rel="import" href="../../lapix-icons.html">
+<!-- <link rel="import" href="../../custom-elements/lapix-conf/lapix-conf.html">
+<link rel="import" href="../../custom-elements/lapix-input-image/lapix-input-image.html"> -->
+<link rel="import" href="lapix-behavior.html">
 
 <dom-module id="lapix-app">
 
@@ -92,7 +96,7 @@
                         <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
                         <paper-menu class="dropdown-content">
                             <paper-icon-item on-tap="_openDevTools"><iron-icon icon="bug-report" item-icon></iron-icon>DevTools</paper-icon-item>
-                            <paper-icon-item on-tap="_logout"><iron-icon icon="power-settings-new" item-icon></iron-icon>Logout</paper-icon-item>
+                            <paper-icon-item on-tap="logout"><iron-icon icon="power-settings-new" item-icon></iron-icon>Logout</paper-icon-item>
                         </paper-menu>
                     </paper-menu-button>
                 </paper-toolbar>
